@@ -10,9 +10,9 @@
 // SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 $REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'] = array(
-'trigger_width'   => 1200,
-'trigger_height'  => 1200,
-'path_to_convert' => '/opt/local/bin/convert',
+'trigger_width'   => 1500,
+'trigger_height'  => 1500,
+'path_to_convert' => '/usr/bin/convert',
 'cachefile'       => $REX['INCLUDE_PATH'].'/generated/files/precompress_img_list.php'
 );
 
