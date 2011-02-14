@@ -51,8 +51,20 @@ function precompress_init($params)
       {
         $cmd = $path_to_convert.' -resize "'.$trigger_width.'x'.$trigger_height.'" '.realpath($imagepath).' '.$compfile;
         exec($cmd, $out = array(),$ret);
+        if($ret!=0)
+        {
+          trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: exec() returns error "'.$ret.'"', E_USER_WARNING);
+        }
       }
-      $params['subject']['imagepath'] = $compfile = $cachepath.'opi_'.$img;
+
+      if(file_exists($compfile))
+      {
+        $params['subject']['imagepath'] = $compfile;
+      }
+      else
+      {
+        trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: could not create precompressed file', E_USER_WARNING);
+      }
     }
 
   }
