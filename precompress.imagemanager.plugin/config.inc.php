@@ -19,16 +19,14 @@ $REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'] = a
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
-$myREX = $REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'];
-
-if(!file_exists($myREX['cachefile']))
+if(!file_exists($REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin']['cachefile']))
 {
-  build_precompress_img_list();
+  refresh_precompress_img_list();
 }
 
 rex_register_extension('IMAGE_MANAGER_INIT','precompress_init');
-rex_register_extension('MEDIA_ADDED'       ,'build_precompress_img_list');
-rex_register_extension('MEDIA_UPDATED'     ,'build_precompress_img_list');
+rex_register_extension('MEDIA_ADDED'       ,'refresh_precompress_img_list');
+rex_register_extension('MEDIA_UPDATED'     ,'refresh_precompress_img_list');
 
 function precompress_init($params)
 {
@@ -62,7 +60,7 @@ function precompress_init($params)
   return $params['subject'];
 }
 
-function build_precompress_img_list()
+function refresh_precompress_img_list()
 {
   global $REX;
   
