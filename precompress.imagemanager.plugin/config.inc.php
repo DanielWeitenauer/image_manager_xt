@@ -34,23 +34,23 @@ function precompress_init($params)
   {
     global $REX;
     $myREX           = $REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'];
-    require_once($myREX['cachefile']);                                          //fb($precompress_img_list,'$precompress_img_list');
+    require_once($myREX['cachefile']);
     
     $trigger_width   = $myREX['trigger_width'];
     $trigger_height  = $myREX['trigger_height'];
     $path_to_convert = $myREX['path_to_convert'];
 
-    $img             = $params['subject']['rex_img_file'];                      //fb($img,'$img');
-    $imagepath       = $params['subject']['imagepath'];                         //fb($imagepath,'$imagepath');
-    $cachepath       = $params['subject']['cachepath'];                         //fb($cachepath,'$cachepath');
+    $img             = $params['subject']['rex_img_file'];
+    $imagepath       = $params['subject']['imagepath'];
+    $cachepath       = $params['subject']['cachepath'];
     
     if(in_array($img,$precompress_img_list))
     {
       $compfile = $cachepath.'opi_'.$img;
       if(!file_exists($compfile))
       {
-        $cmd = $path_to_convert.' -resize "'.$trigger_width.'x'.$trigger_height.'" '.realpath($imagepath).' '.$compfile; //fb($cmd,'$cmd');
-        exec($cmd, $out = array(),$ret);                                        //fb($out,'$outoutput');fb($rretc,'$ret');
+        $cmd = $path_to_convert.' -resize "'.$trigger_width.'x'.$trigger_height.'" '.realpath($imagepath).' '.$compfile;
+        exec($cmd, $out = array(),$ret);
       }
       $params['subject']['imagepath'] = $compfile = $cachepath.'opi_'.$img;
     }
