@@ -7,19 +7,41 @@
 * $Id$:
 */
 
+// ADDON IDENTIFIER & ROOT DIR
+////////////////////////////////////////////////////////////////////////////////
+$myself = 'precompress.imagemanager.plugin';
+$myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
+
+
+// REX COMMONS
+////////////////////////////////////////////////////////////////////////////////
+$Revision = '';
+$REX['ADDON'][$myself]['VERSION'] = array
+(
+'VERSION'      => 0,
+'MINORVERSION' => 1,
+'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
+);
+$REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
+$REX['ADDON']['title'][$myself]       = 'Precompressor';
+$REX['ADDON']['author'][$myself]      = 'rexdev.de';
+$REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';
+$REX['ADDON']['perm'][$myself]        = $myself.'[]';
+$REX['PERM'][]                        = $myself.'[]';
+
 // SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'] = array(
-'trigger_width'   => 1500,
-'trigger_height'  => 1500,
-'path_to_convert' => '/usr/bin/convert',
-'cachefile'       => $REX['INCLUDE_PATH'].'/generated/files/precompress_img_list.php'
-);
+$REX['ADDON']['image_manager']['PLUGIN']['precompress.imagemanager.plugin']['cachefile'] = $REX['INCLUDE_PATH'].'/generated/files/im_plugin_precompress_img_list.php';
+// --- DYN
+$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.imagemanager.plugin"]["trigger_width"]   = 1500;
+$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.imagemanager.plugin"]["trigger_height"]  = 1500;
+$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.imagemanager.plugin"]["path_to_convert"] = '/usr/bin/convert';
+// --- /DYN
 
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
-if(!file_exists($REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin']['cachefile']))
+if(!file_exists($REX['ADDON']['image_manager']['PLUGIN']['precompress.imagemanager.plugin']['cachefile']))
 {
   refresh_precompress_img_list();
 }
@@ -33,7 +55,7 @@ function precompress_init($params)
   if($params['subject']['rex_img_file']!='')
   {
     global $REX;
-    $myREX           = $REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'];
+    $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.imagemanager.plugin'];
     require_once($myREX['cachefile']);
     
     $trigger_width   = $myREX['trigger_width'];
@@ -76,7 +98,7 @@ function refresh_precompress_img_list()
 {
   global $REX;
   
-  $myREX           = $REX['ADDON']['image_manager']['PLUGINS']['precompress.imagemanager.plugin'];
+  $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.imagemanager.plugin'];
   $trigger_width   = $myREX['trigger_width'];
   $trigger_height  = $myREX['trigger_height'];
   $cachefile       = $myREX['cachefile'];
