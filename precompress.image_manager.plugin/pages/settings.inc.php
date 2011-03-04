@@ -25,6 +25,7 @@ $REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["path_to_convert"] = \''
 
   $file = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself.'/config.inc.php';
   rex_replace_dynamic_contents($file, $content);
+  refresh_precompress_img_list();
   echo rex_info('Einstellungen wurden gespeichert.');
 }
 
