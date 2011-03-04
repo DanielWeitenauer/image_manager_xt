@@ -1,13 +1,13 @@
 <?php
 /**
-* rex_resize Plugin for image_manager Addon
+* ImageMagick Precompress Plugin for image_manager Addon
 *
 * @package redaxo4.3
-* @version 0.1
+* @version 0.2
 * $Id$:
 */
 
-$myself = 'precompress.imagemanager.plugin';
+$myself = 'precompress.image_manager.plugin';
 
 // UPDATE/WRITE USER SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
