@@ -3,13 +3,13 @@
 * Referrer Blocker Plugin for image_manager Addon
 *
 * @package redaxo4.3
-* @version 0.1
+* @version 0.2
 * $Id$:
 */
 
 // ADDON IDENTIFIER & ROOT DIR
 ////////////////////////////////////////////////////////////////////////////////
-$myself = 'referrer_block.imagemanager.plugin';
+$myself = 'referrer_block.image_manager.plugin';
 $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 
@@ -19,7 +19,7 @@ $Revision = '';
 $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
-'MINORVERSION' => 1,
+'MINORVERSION' => 2,
 'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
@@ -32,8 +32,8 @@ $REX['PERM'][]                        = $myself.'[]';
 // DYN SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
-$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.imagemanager.plugin"]["rex_img_file"] = '';
-$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.imagemanager.plugin"]["rex_img_type"] = '';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_file"] = '';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_type"] = '';
 // --- /DYN
 
 // MAIN
@@ -49,8 +49,8 @@ if(isset($_SERVER['HTTP_REFERER']) && isset($_GET['rex_img_file']) && isset($_GE
     {
       global $REX;
 
-      $replace_file = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.imagemanager.plugin"]["rex_img_file"];
-      $replace_type = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.imagemanager.plugin"]["rex_img_type"];
+      $replace_file = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_file"];
+      $replace_type = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_type"];
 
       if($replace_file!='')
       {
