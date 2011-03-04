@@ -10,6 +10,6 @@
 $error = '';
 
 if ($error != '')
-  $REX['ADDON']['installmsg']['_rex_resize.imagemanager.plugin'] = $error;
+  $REX['ADDON']['installmsg']['_rex_resize.image_manager.plugin'] = $error;
 else
-  $REX['ADDON']['install']['_rex_resize.imagemanager.plugin'] = 0;
+  $REX['ADDON']['install']['_rex_resize.image_manager.plugin'] = 0;

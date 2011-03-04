@@ -181,7 +181,7 @@ class rex_resize_legacy
     $cachepath = $REX['INCLUDE_PATH'].'/generated/files/';
     $pattern = $cachepath.'image_manager__RR_*_'.$this->img_file;
     $glo = glob($pattern);
-    if ($REX['ADDON']['image_manager']['PLUGINS']['_rex_resize.imagemanager.plugin']['max_cachefiles']<=count($glo))
+    if($REX['ADDON']['image_manager']['PLUGIN']['_rex_resize.image_manager.plugin']['max_cachefiles']<=count($glo))
     {
       $cachefile = '';
       $cachetime = -1;

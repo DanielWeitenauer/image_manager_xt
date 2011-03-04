@@ -1,0 +1,70 @@
+h1. Allgemein
+
+Bildet die Funktionalität des "alten" image_resize Addons im image_manager nach.
+Dabei werden vom Plugin die @rex_resize@ / @rex_filter@ Parameter für den ImageManager in dessen Logik "übersetzt".
+
+Das Plugin ist 1:1 kompatibel zu rex_resize/rex_filter, sprich alte/vorhandene image_resize Aufrufe einer migrierten site können einfach weiterverwendet werden. (es werden die Standard rex_filter @sharpen@, @blur@, @sepia@, @brand@ & @grayscale@ unterstüzt.)
+
+h2. Resize Modi
+
+Neben den Original-Resize-Modi @awhc@ ist noch zusätzlich der Modus @f@, implementiert, der das Bild in eine Rechteckfläche einpaßt, also so skaliert, daß es die angegebene Höhe und Breite - egal ob das Bild hoch oder querformat ist - maximal ausfüllt, ohne einen der beiden Werte zu überschreiten.
+
+h1. Settings
+
+Die Option @Max. Cachefiles@ begrenzt - identisch zum Original - wieviele resize Varianten _eines_ Bildes erstellt werden dürfen.
+
+h1. Verwendung/Beispiele
+
+Um eine Vorschaugrafik zu generieren wird es durch Aufrufen mit einer speziellen Url umgewandelt, z.B:
+
+bc. index.php?rex_resize=100w__imagefile
+
+h3. Modi:
+
+* @w@ = width (Skalieren in der Breite)
+* @h@ = height (Skalieren in der Höhe)
+* @c@ = crop (Bildausschnitt herausschneiden)
+* @a@ = automatic (Skalieren anhand der längsten Seite des Bildes)
+* @f@ = fit (Skalieren innerhalb einer Rechteckfläche)
+
+h3. Filter/Effekte:
+
+blur, brand, sepia, sharpen, grayscale
+
+h3. Anwendungsbeispiele:
+
+Skaliere das Bild auf eine Breite von 100px. Die Proportionen des Bildes werden beibehalten:
+
+bc. index.php?rex_resize=100w__imagefile
+
+Skaliere das Bild auf eine Höhe von 150px. Die Proportionen des Bildes werden beibehalten:
+
+bc. index.php?rex_resize=150h__imagefile
+
+Skaliere das Bild anhand der längsten Seite, diese auf eine Länge von 200px. Die Proportionen des Bildes werden beibehalten:
+
+bc. index.php?rex_resize=200a__imagefile
+
+Skaliere das Bild auf eine Breite von 100px und eine Höhe von 200px. Ggf. wird das Bild dadurch verzehrt:
+
+bc. index.php?rex_resize=100w__200h__imagefile
+
+Skaliere das Bild unter beibehaltung seiner Proportionen und unabhängig seines Formates (quer/hoch) so, daß es in eine Rechteckfläche von 150x100 paßt ohne einen der beiden Werte zu überschreiten:
+
+bc. index.php?rex_resize=150f__100h__imagefile
+
+Schneide aus dem Bild, ausgehend vom Zentrum, einen 100px Breiten und 200px hohen Bereich heraus:
+
+bc. index.php?rex_resize=100c__200h__imagefile
+
+Schneide aus dem Bild, ausgehend vom Zentrum um 50px nach rechts verschoben, einen 100px Breiten und 200px hohen Bereich heraus:
+
+bc. index.php?rex_resize=100c__200h__50o__imagefile
+
+Schneide aus dem Bild, ausgehend vom Zentrum um 150px nach links verschoben, einen 100px Breiten und 200px hohen Bereich heraus:
+
+bc. index.php?rex_resize=100c__200h__-150o__imagefile
+
+Wende die Filter blur und sepia auf das Bild an. Zugleich wird das Bild an der längsten Seite auf 200px länge skaliert. Die Proportionen des Bildes werden beibehalten.
+
+bc. index.php?rex_resize=200a__imagefile&rex_filter[]=blur&rex_filter[]=sepia 

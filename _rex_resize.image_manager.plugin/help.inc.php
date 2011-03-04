@@ -8,4 +8,4 @@
 */
 
 
-echo '<h2>some help for _rex_resize.imagemanager.plugin goes here..</h2>';
+echo '<h2>some help for _rex_resize.image_manager.plugin goes here..</h2>';
