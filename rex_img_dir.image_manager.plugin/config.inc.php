@@ -3,13 +3,13 @@
 * Custom Folder Plugin for image_manager Addon
 *
 * @package redaxo4.3
-* @version 0.1
+* @version 0.2
 * $Id$:
 */
 
 // ADDON IDENTIFIER & ROOT DIR
 ////////////////////////////////////////////////////////////////////////////////
-$myself = 'rex_img_dir.imagemanager.plugin';
+$myself = 'rex_img_dir.image_manager.plugin';
 $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 
@@ -19,7 +19,7 @@ $Revision = '';
 $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
-'MINORVERSION' => 1,
+'MINORVERSION' => 2,
 'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
@@ -33,8 +33,8 @@ $REX['PERM'][]                        = $myself.'[]';
 // DYN SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
-$REX["ADDON"]["image_manager"]["PLUGIN"]["rex_img_dir.imagemanager.plugin"]["img_dirs"] = array (
-  1 => 'files/addons/image_manager/plugins/rex_img_dir.imagemanager.plugin',
+$REX["ADDON"]["image_manager"]["PLUGIN"]["rex_img_dir.image_manager.plugin"]["img_dirs"] = array (
+  1 => 'files/addons/image_manager/plugins/rex_img_dir.image_manager.plugin',
 );
 // --- /DYN
 
@@ -50,7 +50,7 @@ if(isset($_GET['rex_img_dir']))
     global $REX;
 
     $img_dir_id  = rex_get('rex_img_dir','int');
-    $img_dirs    = $REX['ADDON']['image_manager']['PLUGIN']['rex_img_dir.imagemanager.plugin']['img_dirs'];
+    $img_dirs    = $REX['ADDON']['image_manager']['PLUGIN']['rex_img_dir.image_manager.plugin']['img_dirs'];
 
     if(isset($img_dirs[$img_dir_id]))
     {

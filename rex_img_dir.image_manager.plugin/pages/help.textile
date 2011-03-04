@@ -17,7 +17,7 @@ Wobei die Pfadangaben ab dem Root/Installations-Verzeichnis der Redaxo Installat
 h1. Beispiel
 
 Das Demo-Bild *demo.jpg* wurde bei der Installation des Plugins in den Ordner
-@files/addons/image_manager/plugins/rex_img_dir.imagemanager.plugin@ kopiert.
+@files/addons/image_manager/plugins/rex_img_dir.image_manager.plugin@ kopiert.
 Es kann anhand des oben definierten Image Directories über dessen ID dann wie folgt aufgerufen werden:
 
 bc. index.php?rex_img_type=rex_mediapool_maximized&rex_img_file=demo.jpg&rex_img_dir=1

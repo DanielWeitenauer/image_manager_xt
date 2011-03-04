@@ -3,7 +3,7 @@
 * Custom Folder Plugin for image_manager Addon
 *
 * @package redaxo4.3
-* @version 0.1
+* @version 0.2
 * $Id$:
 */
 
@@ -14,9 +14,9 @@ if ($func == 'save_settings')
 {
   $img_dirs = rex_request('rex_img_dirs','string');
   $img_dirs = img_dir_string_2_array($img_dirs);
-  $REX['ADDON']['image_manager']['PLUGIN']['rex_img_dir.imagemanager.plugin']['img_dirs'] = $img_dirs;
+  $REX['ADDON']['image_manager']['PLUGIN']['rex_img_dir.image_manager.plugin']['img_dirs'] = $img_dirs;
   $content =
-'$REX["ADDON"]["image_manager"]["PLUGIN"]["rex_img_dir.imagemanager.plugin"]["img_dirs"] = '.stripslashes(var_export($img_dirs,true)).';
+'$REX["ADDON"]["image_manager"]["PLUGIN"]["rex_img_dir.image_manager.plugin"]["img_dirs"] = '.stripslashes(var_export($img_dirs,true)).';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$plugin.'/config.inc.php';
@@ -55,7 +55,7 @@ return
 <div class="rex-form-row">
   <p class="rex-form-col-a rex-form-textarea">
     <label for="img_dirs">Image Directories</label>
-    <textarea id="img_dirs" cols="50" rows="6" class="rex-form-textarea" name="rex_img_dirs">'.img_dir_array_2_string($REX['ADDON']['image_manager']['PLUGIN']['rex_img_dir.imagemanager.plugin']['img_dirs']).'</textarea>
+    <textarea id="img_dirs" cols="50" rows="6" class="rex-form-textarea" name="rex_img_dirs">'.img_dir_array_2_string($REX['ADDON']['image_manager']['PLUGIN']['rex_img_dir.image_manager.plugin']['img_dirs']).'</textarea>
   </p>
 </div><!-- .rex-form-row -->
 ';
