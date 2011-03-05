@@ -3,7 +3,9 @@
 * rex_resize Plugin for image_manager Addon
 *
 * @package redaxo4.3
-* @version 0.1
+* @version 0.2
+* @link    http://svn.rexdev.de/redmine/projects/image-manager-ep
+* @author  http://rexdev.de/
 * $Id$:
 */
 
@@ -19,7 +21,7 @@ $Revision = '';
 $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
-'MINORVERSION' => 1,
+'MINORVERSION' => 2,
 'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
