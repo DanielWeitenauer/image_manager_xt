@@ -18,6 +18,6 @@ h1. Settings
 * *trigger_height*  Bildhöhe ab der das Plugin eingreift
 * *path_to_convert* Pfad zum @convert@ binary auf dem Server
 
-h1. Beispiele
+h1. Beispiel
 
-Siehe "(jsopenwin)http://rexdev.de/addons/image_manager-ep/precompress-plugin.html":http://rexdev.de/addons/image_manager-ep/precompress-plugin.html
+Siehe "(blank)http://rexdev.de/addons/image_manager-ep/precompress-plugin.html":http://rexdev.de/addons/image_manager-ep/precompress-plugin.html
