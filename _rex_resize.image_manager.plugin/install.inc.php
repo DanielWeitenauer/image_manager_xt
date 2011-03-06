@@ -12,28 +12,9 @@
 // INSTALL SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 $myself            = '_rex_resize.image_manager.plugin';
-$myroot            = $REX['INCLUDE_PATH'].'/addons/'.$myself;
-$disable_addons    = array('image_resize');
-$error             = array();
 
 
-// CHECK ADDONS TO DISABLE
-////////////////////////////////////////////////////////////////////////////////
-foreach($disable_addons as $a)
-{
-  if (OOAddon::isInstalled($a) || OOAddon::isAvailable($a))
-  {
-    $error[] = 'Addon "'.$a.'" muß erst deinstalliert werden.  <span style="float:right;">[ <a href="index.php?page=addon&addonname='.$a.'&uninstall=1">'.$a.' de-installieren</a> ]</span>';
-  }
-}
+$REX['ADDON']['install'][$myself] = 1;
 
-
-if(count($error)>0)
-{
-  $REX['ADDON']['install'][$myself] = 1;
-}
-else
-{
-  $REX['ADDON']['installmsg'][$myself] = '<br />'.implode($error,'<br />');
-  $REX['ADDON']['install'][$myself] = 0;
-}
+// PLUINGS CAN'T CHECK IF ADDONS INSTALLED OR AVAILLABLE -> MANUALLY NOTIFY USER
+echo rex_warning('Bitte beachten: das <em>image_resize</em> Addon muß - falls noch aktiv - deinstalliert werden!');
