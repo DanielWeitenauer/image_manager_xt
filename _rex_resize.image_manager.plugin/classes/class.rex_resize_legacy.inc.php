@@ -89,7 +89,11 @@ class rex_resize_legacy
             $crop_height   = $img_height;
             $offset_width  = $offset;
             $offset_height = '';
+            // class rex_effect_crop v0.9
             $position      = 'middle_center';
+            // class rex_effect_crop v1.0
+            $hpos          = 'center';
+            $vpos          = 'middle';
           }
           else
           {
@@ -97,15 +101,19 @@ class rex_resize_legacy
             $crop_height   = (int) (($img_width * $height) / $size);
             $offset_width  = '';
             $offset_height = $offset;
+            // class rex_effect_crop v0.9
             $position      = 'middle_center';
+            // class rex_effect_crop v1.0
+            $hpos          = 'center';
+            $vpos          = 'middle';
           }
 
-          $crop_params   = array('width' => $crop_width,'height' => $crop_height,'offset_width' => $offset_width,'offset_height' => $offset_height,'position' => $position);
+          $crop_params   = array('width' => $crop_width,'height' => $crop_height,'offset_width' => $offset_width,'offset_height' => $offset_height,'position' => $position,'hpos'=>$hpos,'vpos'=>$vpos);
           $resize_params = array('width' => 1,'height' => $height,'style' => 'minimum','allow_enlarge' => 'not_enlarge');
         }
         else
         {
-          $crop_params   = array('width' => $crop_width,'height' => $crop_height,'offset_width' => $offset,'offset_height' => '','position' => 'middle_center');
+          $crop_params   = array('width' => $crop_width,'height' => $crop_height,'offset_width' => $offset,'offset_height' => '','position' => 'middle_center','hpos'=>'center','vpos'=>'middle');
           $resize_params = array('width' => $size,'height' => 1,'style' => 'minimum','allow_enlarge' => 'not_enlarge');
         }
         break;
