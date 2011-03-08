@@ -38,6 +38,10 @@ $REX['PERM'][]                        = $myself.'[]';
 $REX["ADDON"]["image_manager"]["PLUGIN"]["_rex_resize.image_manager.plugin"]["max_cachefiles"] = 5;
 // --- /DYN
 
+// TINY FUNCTIONS
+////////////////////////////////////////////////////////////////////////////////
+require_once $myroot.'/extensions/extension_wysiwyg.inc.php';
+rex_register_extension('OUTPUT_FILTER', 'rex_resize_wysiwyg_output');
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
