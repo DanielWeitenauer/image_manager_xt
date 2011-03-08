@@ -36,7 +36,7 @@ $REX['PERM'][]                        = $myself.'[]';
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
 $REX["ADDON"]["image_manager"]["PLUGIN"]["_rex_resize.image_manager.plugin"]["max_cachefiles"] = 5;
-$REX["ADDON"]["image_manager"]["PLUGIN"]["_rex_resize.image_manager.plugin"]["tiny_support"]   = 1;
+$REX["ADDON"]["image_manager"]["PLUGIN"]["_rex_resize.image_manager.plugin"]["tiny_support"]   = 0;
 // --- /DYN
 
 

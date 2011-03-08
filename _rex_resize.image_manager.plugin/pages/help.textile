@@ -11,7 +11,8 @@ Neben den Original-Resize-Modi @awhc@ ist noch zusätzlich der Modus @f@, implem
 
 h1. Settings
 
-Die Option @Max. Cachefiles@ begrenzt - identisch zum Original - wieviele resize Varianten _eines_ Bildes erstellt werden dürfen.
+* *Max. Cachefiles:* begrenzt - identisch zum Original - wieviele resize Varianten _eines_ Bildes erstellt werden dürfen.
+* *Tiny Support:* Tiny benötigt für ImageResize eine zusätzliche Funktion die über den Outpufilter die Bild-URLs umschreibt. Wenn Tiny nicht verwendet wird, oder ImageResize @ Tiny nicht benötigt wird, sollte diese Option aus Performancegründen ausgeschaltet bleiben.
 
 h1. Verwendung/Beispiele
 
