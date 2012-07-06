@@ -96,7 +96,7 @@ class rex_effect_roundcorners extends rex_effect_abstract
    * @link http://www.exorithm.com/algorithm/history/round_corners History at eXorithm
    * @license http://www.exorithm.com/home/show/license
    *
-   * @param resource $image (GD image) 
+   * @param resource $image (GD image)
    * @param number $radius Radius of the rounded corners.
    * @param string $color (hex color code) Color of the background.
    * @param mixed $transparency Level of transparency. 0 is no transparency, 127 is full transparency.
@@ -106,31 +106,31 @@ class rex_effect_roundcorners extends rex_effect_abstract
   {
     $width = imagesx($image);
     $height = imagesy($image);
-    
+
     $image2 = imagecreatetruecolor($width, $height);
     imagecopy($image2, $image, 0, 0, 0, 0, $width, $height);
-    
+
     imagesavealpha($image2, true);
     imagealphablending($image2, false);
-    
+
     $full_color = $this->allocate_color($image2, $color, $transparency);
-    
+
     // loop 4 times, for each corner...
     for ($left=0;$left<=1;$left++) {
       for ($top=0;$top<=1;$top++) {
-        
+
         $start_x = $left * ($width-$radius);
         $start_y = $top * ($height-$radius);
         $end_x = $start_x+$radius;
         $end_y = $start_y+$radius;
-        
+
         $radius_origin_x = $left * ($start_x-1) + (!$left) * $end_x;
         $radius_origin_y = $top * ($start_y-1) + (!$top) * $end_y;
-        
+
         for ($x=$start_x;$x<$end_x;$x++) {
           for ($y=$start_y;$y<$end_y;$y++) {
             $dist = sqrt(pow($x-$radius_origin_x,2)+pow($y-$radius_origin_y,2));
-            
+
             if ($dist>($radius+1)) {
               imagesetpixel($image2, $x, $y, $full_color);
             } else {
@@ -142,10 +142,10 @@ class rex_effect_roundcorners extends rex_effect_abstract
             }
           }
         }
-        
+
       }
     }
-    
+
     return $image2;
   }
 
@@ -174,12 +174,12 @@ class rex_effect_roundcorners extends rex_effect_abstract
     if ($transparency<0 || $transparency>127) {
       throw new Exception("Invalid transparency.");
     }
-    
+
     $r  = hexdec(substr($color, 0, 2));
     $g  = hexdec(substr($color, 2, 2));
     $b  = hexdec(substr($color, 4, 2));
     if ($transparency>127) $transparency = 127;
-    
+
     if ($transparency<=0)
       return imagecolorallocate($image, $r, $g, $b);
     else
@@ -190,7 +190,7 @@ class rex_effect_roundcorners extends rex_effect_abstract
   /**
    * antialias_pixel
    *
-   * Helper function to apply a certain weight of a certain color to a pixel in an image. The index of the resulting color is returned. 
+   * Helper function to apply a certain weight of a certain color to a pixel in an image. The index of the resulting color is returned.
    *
    * @version 0.1
    * @author Contributors at eXorithm
@@ -212,22 +212,22 @@ class rex_effect_roundcorners extends rex_effect_abstract
     $g1 = $c['green'];
     $b1 = $c['blue'];
     $t1 = $c['alpha'];
-    
+
     $color2 = imagecolorat($image, $x, $y);
     $c = imagecolorsforindex($image, $color2);
     $r2 = $c['red'];
     $g2 = $c['green'];
     $b2 = $c['blue'];
     $t2 = $c['alpha'];
-    
+
     $cweight = $weight+($t1/127)*(1-$weight)-($t2/127)*(1-$weight);
-    
+
     $r = round($r2*$cweight + $r1*(1-$cweight));
     $g = round($g2*$cweight + $g1*(1-$cweight));
     $b = round($b2*$cweight + $b1*(1-$cweight));
-    
+
     $t = round($t2*$weight + $t1*(1-$weight));
-    
+
     return imagecolorallocatealpha($image, $r, $g, $b, $t);
   }
 

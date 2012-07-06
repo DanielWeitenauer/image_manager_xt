@@ -25,7 +25,7 @@ if ($REX['REDAXO'])
   {
     global $REX;
 
-    $params['subject'] .= 
+    $params['subject'] .=
       PHP_EOL.'<!-- IMAGE_MANAGER -->'.
       PHP_EOL.'<link rel="stylesheet" type="text/css" href="'.$REX['HTDOCS_PATH'].'files/addons/image_manager/backend.css" media="screen, projection, print" />'.
       PHP_EOL.'<!-- /IMAGE_MANAGER -->'.PHP_EOL;
@@ -60,10 +60,10 @@ switch($subpage)
 
   default:
   {
-  	if ($msg != '')
-		  echo rex_info($msg);
+    if ($msg != '')
+      echo rex_info($msg);
 
-	  $subpage = 'overview';
+    $subpage = 'overview';
   }
 }
 

@@ -68,11 +68,11 @@ if(file_exists($form))
         <input type="hidden" name="subpage" value="plugins" />
         <input type="hidden" name="plugin" value="'.$plugin.'" />
         <input type="hidden" name="func" value="save_settings" />
-  
+
         <fieldset class="rex-form-col-1">
           <legend style="font-size:1.2em">Settings</legend>
             <div class="rex-form-wrapper">
-  
+
               '.$form;
 
   if(!isset($nosubmit))
@@ -104,7 +104,7 @@ if(file_exists($help))
   <div class="rex-addon-output im-plugins">
     <h2 class="rex-hl2" style="font-size:1.2em">Infos</h2>
     <p style="float:right;color:gray;padding:16px 20px 0 0;">Version: '.$REX['ADDON']['plugins']['image_manager']['version'][$plugin].'</p>
-   
+
     <div class="rex-addon-content">
 
     '.imm_incparse($plugin_root,$plugin.'/pages/help.textile','textile',true).'
