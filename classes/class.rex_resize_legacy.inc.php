@@ -208,5 +208,5 @@ class rex_resize_legacy
     }
 
   }
-  
+
 }
