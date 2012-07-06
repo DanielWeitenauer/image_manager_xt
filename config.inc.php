@@ -58,7 +58,7 @@ function precompress_init($params)
     global $REX;
     $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];
     require_once($myREX['cachefile']);
-    
+
     $trigger_width   = $myREX['trigger_width'];
     $trigger_height  = $myREX['trigger_height'];
     $path_to_convert = $myREX['path_to_convert'];
@@ -66,7 +66,7 @@ function precompress_init($params)
     $img             = $params['subject']['rex_img_file'];
     $imagepath       = $params['subject']['imagepath'];
     $cachepath       = $params['subject']['cachepath'];
-    
+
     if(in_array($img,$precompress_img_list))
     {
       $compfile = $cachepath.'opi_'.$img;
@@ -98,7 +98,7 @@ function precompress_init($params)
 function refresh_precompress_img_list()
 {
   global $REX;
-  
+
   $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];
   $trigger_width   = $myREX['trigger_width'];
   $trigger_height  = $myREX['trigger_height'];
@@ -120,6 +120,6 @@ function refresh_precompress_img_list()
     $img_list[] = $db->getValue('filename');
     $db->next();
   }
-  
+
   rex_put_file_contents($cachefile,'<?php'.PHP_EOL.'$precompress_img_list = '.var_export($img_list,true).PHP_EOL.'?>');
 }
