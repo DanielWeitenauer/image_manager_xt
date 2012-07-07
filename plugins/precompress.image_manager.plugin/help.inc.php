@@ -1,10 +1,10 @@
 <?php
 /**
-* ImageMagick Precompress Plugin for image_manager Addon
+* Referrer Blocker Plugin for image_manager Addon
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.26
+* @version 0.2.13
 */
 
 
-echo '<h2>some help for precompress.image_manager.plugin goes here..</h2>';
+echo '<h2>some help for referrer_block.image_manager.plugin goes here..</h2>';

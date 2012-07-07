@@ -1,30 +1,27 @@
 <?php
 /**
-* ImageMagick Precompress Plugin for image_manager Addon
+* Referrer Blocker Plugin for image_manager Addon
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.26
+* @version 0.2.13
 */
 
-$myself = 'precompress.image_manager.plugin';
+$myself = 'referrer_block.image_manager.plugin';
 
 // UPDATE/WRITE USER SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 if ($func == 'save_settings')
 {
-  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['trigger_width']   = rex_request('trigger_width','int');
-  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['trigger_height']  = rex_request('trigger_height','int');
-  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['path_to_convert'] = rex_request('path_to_convert','string');
+  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['rex_img_file']   = rex_request('rex_img_file','string');
+  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['rex_img_type'] = rex_request('rex_img_type','string');
 
   $content =
-'$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["trigger_width"]   = '.rex_request('trigger_width','int').';
-$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["trigger_height"]  = '.rex_request('trigger_height','int').';
-$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["path_to_convert"] = \''.rex_request('path_to_convert','string').'\';
+'$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["rex_img_file"] = \''.rex_request('rex_img_file','string').'\';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["rex_img_type"] = \''.rex_request('rex_img_type','string').'\';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself.'/config.inc.php';
   rex_replace_dynamic_contents($file, $content);
-  refresh_precompress_img_list();
   echo rex_info('Einstellungen wurden gespeichert.');
 }
 
@@ -33,9 +30,9 @@ return
 '
 <div class="rex-form-row">
   <p class="rex-form-col-a rex-form-text">
-    <label for="trigger_width">Trigger Width: </label>
-    <input id="trigger_width" class="rex-form-text" type="text" name="trigger_width" value="'.
-    $REX['ADDON']['image_manager']['PLUGIN'][$myself]['trigger_width'].
+    <label for="rex_img_file">Ersatz-Bilddatei: </label>
+    <input id="rex_img_file" class="rex-form-text" type="text" name="rex_img_file" value="'.
+    $REX['ADDON']['image_manager']['PLUGIN'][$myself]['rex_img_file'].
     '" />
   </p>
 </div><!-- /rex-form-row -->
@@ -43,19 +40,9 @@ return
 
 <div class="rex-form-row">
   <p class="rex-form-col-a rex-form-text">
-    <label for="trigger_height">Trigger Height: </label>
-    <input id="trigger_height" class="rex-form-text" type="text" name="trigger_height" value="'.
-    $REX['ADDON']['image_manager']['PLUGIN'][$myself]['trigger_height'].
-    '" />
-  </p>
-</div><!-- /rex-form-row -->
-
-
-<div class="rex-form-row">
-  <p class="rex-form-col-a rex-form-text">
-    <label for="path_to_convert">Convert Path:  </label>
-    <input id="path_to_convert" class="rex-form-text" type="text" name="path_to_convert" value="'.
-    $REX['ADDON']['image_manager']['PLUGIN'][$myself]['path_to_convert'].
+    <label for="rex_img_type">Ersatz-Bildtyp: </label>
+    <input id="rex_img_type" class="rex-form-text" type="text" name="rex_img_type" value="'.
+    $REX['ADDON']['image_manager']['PLUGIN'][$myself]['rex_img_type'].
     '" />
   </p>
 </div><!-- /rex-form-row -->

@@ -1,15 +1,15 @@
 <?php
 /**
-* ImageMagick Precompress Plugin for image_manager Addon
+* Referrer Blocker Plugin for image_manager Addon
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.26
+* @version 0.2.13
 */
 
 
 // ADDON IDENTIFIER & ROOT DIR
 ////////////////////////////////////////////////////////////////////////////////
-$myself = 'precompress.image_manager.plugin';
+$myself = 'referrer_block.image_manager.plugin';
 $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 
@@ -20,105 +20,50 @@ $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
 'MINORVERSION' => 2,
-'SUBVERSION'   => 26
+'SUBVERSION'   => 13
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
-$REX['ADDON']['title'][$myself]       = 'Precompressor';
+$REX['ADDON']['title'][$myself]       = 'Referrer Block';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';
 $REX['ADDON']['perm'][$myself]        = $myself.'[]';
 $REX['PERM'][]                        = $myself.'[]';
 
-// SETTINGS
+// DYN SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin']['cachefile'] = $REX['INCLUDE_PATH'].'/generated/files/precompress.image_manager.plugin_cache.php';
 // --- DYN
-$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_width"]   = 1500;
-$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_height"]  = 1500;
-$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = '/usr/bin/convert';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_file"] = '';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_type"] = '';
 // --- /DYN
-
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
-if(!file_exists($REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin']['cachefile']))
+if(isset($_SERVER['HTTP_REFERER']) && isset($_GET['rex_img_file']) && isset($_GET['rex_img_type']))
 {
-  refresh_precompress_img_list();
-}
-
-rex_register_extension('IMAGE_MANAGER_INIT','precompress_init');
-rex_register_extension('MEDIA_ADDED'       ,'refresh_precompress_img_list');
-rex_register_extension('MEDIA_UPDATED'     ,'refresh_precompress_img_list');
-
-function precompress_init($params)
-{
-  if($params['subject']['rex_img_file']!='')
+  $referrer = parse_url($_SERVER['HTTP_REFERER']);
+  if($referrer['host']!=$_SERVER['HTTP_HOST'])
   {
-    global $REX;
-    $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];
-    require_once($myREX['cachefile']);
+    rex_register_extension('IMAGE_MANAGER_INIT','referrer_block_init');
 
-    $trigger_width   = $myREX['trigger_width'];
-    $trigger_height  = $myREX['trigger_height'];
-    $path_to_convert = $myREX['path_to_convert'];
-
-    $img             = $params['subject']['rex_img_file'];
-    $imagepath       = $params['subject']['imagepath'];
-    $cachepath       = $params['subject']['cachepath'];
-
-    if(in_array($img,$precompress_img_list))
+    function referrer_block_init($params)
     {
-      $compfile = $cachepath.'opi_'.$img;
-      if(!file_exists($compfile))
+      global $REX;
+
+      $replace_file = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_file"];
+      $replace_type = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_type"];
+
+      if($replace_file!='')
       {
-        $cmd = $path_to_convert.' -resize "'.$trigger_width.'x'.$trigger_height.'" '.realpath($imagepath).' '.$compfile;
-        exec($cmd, $out = array(),$ret);
-        if($ret!=0)
-        {
-          trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: exec() returns error "'.$ret.'"', E_USER_WARNING);
-        }
+        $params['subject']['rex_img_file'] = $replace_file;
+        $params['subject']['imagepath'] = $REX['HTDOCS_PATH'].'/files/'.$replace_file;
       }
 
-      if(file_exists($compfile))
+      if($replace_type!='')
       {
-        $params['subject']['imagepath'] = $compfile;
+        $params['subject']['rex_img_type'] = $replace_type;
       }
-      else
-      {
-        trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: could not create precompressed file', E_USER_WARNING);
-      }
+
+      return $params['subject'];
     }
-
   }
-
-  return $params['subject'];
-}
-
-function refresh_precompress_img_list()
-{
-  global $REX;
-
-  $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];
-  $trigger_width   = $myREX['trigger_width'];
-  $trigger_height  = $myREX['trigger_height'];
-  $cachefile       = $myREX['cachefile'];
-  $img_list        = array();
-
-  if(file_exists($cachefile))
-  {
-    unlink($cachefile);
-  }
-
-  $db = new rex_sql();
-  $db->setQuery('SELECT `filename`
-                 FROM `rex_file`
-                 WHERE `width` >='.$trigger_width.'
-                 OR `height` >='.$trigger_height);
-  while($db->hasNext())
-  {
-    $img_list[] = $db->getValue('filename');
-    $db->next();
-  }
-
-  rex_put_file_contents($cachefile,'<?php'.PHP_EOL.'$precompress_img_list = '.var_export($img_list,true).PHP_EOL.'?>');
 }
