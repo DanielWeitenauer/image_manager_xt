@@ -1,10 +1,21 @@
 <?php
+/**
+ * image_manager Addon
+ *
+ * @author office[at]vscope[dot]at Wolfgang Hutteger
+ * @author markus.staab[at]redaxo[dot]de Markus Staab
+ * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
+ * @author jdlx / rexdev.de
+ *
+ * @package redaxo 4.3.x/4.4.x
+ * @version 1.2.0
+ */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////
 ////                  Unsharp Mask for PHP - version 2.1.1
 ////
-////    Unsharp mask algorithm by Torstein Hønsi 2003-07.
+////    Unsharp mask algorithm by Torstein H?nsi 2003-07.
 ////             thoensi_at_netcom_dot_no.
 ////               Please leave this notice.
 ////

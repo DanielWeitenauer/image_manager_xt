@@ -2,11 +2,13 @@
 /**
  * image_manager Addon
  *
+ * @author office[at]vscope[dot]at Wolfgang Hutteger
  * @author markus.staab[at]redaxo[dot]de Markus Staab
  * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
+ * @author jdlx / rexdev.de
  *
- * @package redaxo4
- * @version svn:$Id$
+ * @package redaxo 4.3.x/4.4.x
+ * @version 1.2.0
  */
 
 $mypage = 'image_manager';
@@ -16,8 +18,8 @@ $Revision = '';
 $REX['ADDON']['rxid'][$mypage] = '679';
 $REX['ADDON']['name'][$mypage] = 'Image Manager';
 $REX['ADDON']['perm'][$mypage] = 'image_manager[]';
-$REX['ADDON']['version'][$mypage] = '1.1.'.preg_replace('/[^0-9]/','',"$Revision$");
-$REX['ADDON']['author'][$mypage] = 'Markus Staab, Jan Kristinus';
+$REX['ADDON']['version'][$mypage] = '1.2.0';
+$REX['ADDON']['author'][$mypage] = 'Markus Staab, Jan Kristinus, jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 $REX['PERM'][] = 'image_manager[]';
 

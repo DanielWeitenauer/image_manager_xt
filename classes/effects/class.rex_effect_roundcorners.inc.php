@@ -1,12 +1,23 @@
 <?php
 /**
-* Roundcorners - ImageManager Effect
-*
-* @package redaxo4.3
-* @version 0.1
-* @link http://svn.rexdev.de/redmine/projects/image-manager-ep
-* $Id$:
-*/
+ * image_manager Addon
+ *
+ * @author office[at]vscope[dot]at Wolfgang Hutteger
+ * @author markus.staab[at]redaxo[dot]de Markus Staab
+ * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
+ * @author jdlx / rexdev.de
+ *
+ * @package redaxo 4.3.x/4.4.x
+ * @version 1.2.0
+ */
+
+/**
+ * Roundcorners - ImageManager Effect
+ *
+ * @package redaxo 4.3.x/4.4.x
+ * @version 0.1
+ * @link http://svn.rexdev.de/redmine/projects/image-manager-ep
+ */
 
 class rex_effect_roundcorners extends rex_effect_abstract
 {

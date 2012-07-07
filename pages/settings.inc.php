@@ -1,15 +1,15 @@
 <?php
-
 /**
  * image_manager Addon
  *
+ * @author office[at]vscope[dot]at Wolfgang Hutteger
  * @author markus.staab[at]redaxo[dot]de Markus Staab
- * @author jan.kristinus[at]yakmara[dot]de Jan Kristinus
+ * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
+ * @author jdlx / rexdev.de
  *
- * @package redaxo4
- * @version svn:$Id$
+ * @package redaxo 4.3.x/4.4.x
+ * @version 1.2.0
  */
-
 // rex_request();
 
 $func = rex_request('func', 'string');

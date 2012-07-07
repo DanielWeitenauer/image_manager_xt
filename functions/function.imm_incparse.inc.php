@@ -1,10 +1,20 @@
 <?php
+/**
+ * image_manager Addon
+ *
+ * @author office[at]vscope[dot]at Wolfgang Hutteger
+ * @author markus.staab[at]redaxo[dot]de Markus Staab
+ * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
+ * @author jdlx / rexdev.de
+ *
+ * @package redaxo 4.3.x/4.4.x
+ * @version 1.2.0
+ */
 
 /**
  * CONTENT PARSER FUNKTIONEN
  * @author rexdev.de
- * @package redaxo4.2
- * @version svn:$Id$
+ * @package redaxo 4.3.x/4.4.x
  */
 
 // INCLUDE PARSER FUNCTION

@@ -1,16 +1,14 @@
 <?php
-
 /**
  * image_manager Addon
  *
  * @author office[at]vscope[dot]at Wolfgang Hutteger
- * @author <a href="http://www.vscope.at">www.vscope.at</a>
+ * @author markus.staab[at]redaxo[dot]de Markus Staab
+ * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
+ * @author jdlx / rexdev.de
  *
- * @author markus[dot]staab[at]redaxo[dot]de Markus Staab
- *
- *
- * @package redaxo4
- * @version svn:$Id$
+ * @package redaxo 4.3.x/4.4.x
+ * @version 1.2.0
  */
 
 
