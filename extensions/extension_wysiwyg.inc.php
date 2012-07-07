@@ -1,12 +1,21 @@
 <?php
 /**
+* rex_resize Plugin for image_manager Addon
+*
+* @package redaxo 4.3.x/4.4.x
+* @version 0.2.29
+* @link    http://svn.rexdev.de/redmine/projects/image-manager-ep
+* @author  http://rexdev.de/
+*/
+
+/**
  * Image-Resize Addon
  *
  * @author office[at]vscope[dot]at Wolfgang Hutteger
  * @author <a href="http://www.vscope.at">www.vscope.at</a>
  *
  * @author markus[dot]staab[at]redaxo[dot]de Markus Staab
- * 
+ *
  *
  * @package redaxo4
  * @version svn:$Id$
@@ -48,7 +57,7 @@ function rex_resize_wysiwyg_output($params)
           else
           {
             $newsrc = $REX['HTDOCS_PATH'] . 'files/' . $src[2];
-          }          
+          }
           $newimage = str_replace(array($src[1], 'ismap="ismap" '), array($newsrc, ''), $var);
           $content = str_replace($var, $newimage, $content);
         }
