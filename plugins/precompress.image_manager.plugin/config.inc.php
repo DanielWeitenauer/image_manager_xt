@@ -2,9 +2,8 @@
 /**
 * ImageMagick Precompress Plugin for image_manager Addon
 *
-* @package redaxo4.3
-* @version 0.2
-* $Id$:
+* @package redaxo 4.3.x/4.4.x
+* @version 0.2.26
 */
 
 
@@ -21,7 +20,7 @@ $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
 'MINORVERSION' => 2,
-'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
+'SUBVERSION'   => 26
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
 $REX['ADDON']['title'][$myself]       = 'Precompressor';
