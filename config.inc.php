@@ -46,7 +46,10 @@ $rex_img_type = rex_get('rex_img_type', 'string');
 
 // RUN ON EP ADDONS_INCLUDED
 ////////////////////////////////////////////////////////////////////////////////
-rex_register_extension('ADDONS_INCLUDED','image_manager_init');
+if(!$REX['SETUP']){
+  rex_register_extension('ADDONS_INCLUDED','image_manager_init');
+}
+
 
 function image_manager_init()
 {
