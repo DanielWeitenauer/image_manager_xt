@@ -96,13 +96,13 @@ class rex_image_cacher
     }
 
     // caching gifs doesn't work
-    //	  if($image->getFormat() == 'GIF' && !$image->hasGifSupport())
-    //	  {
-    //	    $image->prepare();
-    //	    $image->send($lastModified);
-    //	  }
-    //	  else
-    //	  {
+    //    if($image->getFormat() == 'GIF' && !$image->hasGifSupport())
+    //    {
+    //      $image->prepare();
+    //      $image->send($lastModified);
+    //    }
+    //    else
+    //    {
     $cacheFile = $this->getCacheFile($image, $cacheParams);
 
     // save image to file
@@ -115,13 +115,32 @@ class rex_image_cacher
     $tmp = $REX['USE_GZIP'];
     $REX['USE_GZIP'] = 'false';
 
+    $format = $image->getFormat() == 'JPG' ? 'jpeg' : strtolower($image->getFormat());
+
+    // EP "IMAGE_SEND_CACHED"
+    ////////////////////////////////////////////////////////////////////////////
+    $do_send = rex_register_extension_point(
+      'IMAGE_SEND_CACHED',
+      true,
+      array('image'        => $image,
+            'cachefile'    => $cacheFile,
+            'format'       => $format,
+            'lastmodified' => $lastModified,
+            'cacheparams'  => $cacheParams,
+            'environment'  => 'frontend',
+            ));
+
+    if(!$do_send){
+      $REX['USE_GZIP'] = $tmp;
+      return false;
+    }
+
     // send file
     $image->sendHeader();
-    $format = $image->getFormat() == 'JPG' ? 'jpeg' : strtolower($image->getFormat());
     rex_send_file($cacheFile,'image/'.$format,'frontend');
 
     $REX['USE_GZIP'] = $tmp;
-    //	  }
+    //    }
   }
 
   /*
