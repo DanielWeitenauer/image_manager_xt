@@ -12,8 +12,8 @@
  */
 ?>
 
-<div class="rex-addon-output">
-  <h2 class="rex-hl2">Image Manager Addon (EP Version <?php echo $REX['ADDON']['version']['image_manager'] ?>)</h2>
+<div class="rex-addon-output im-plugins">
+  <h2 class="rex-hl2">Image Manager Addon</h2>
   <div class="rex-addon-content">
     <?php require dirname(__FILE__). '/../help.inc.php'; ?>
   </div>
