@@ -1,6 +1,6 @@
 # addon:image_manager en_gb
 
-imanager_subpage_desc = Description
+imanager_subpage_desc = Help
 imanager_subpage_config = Configuration
 imanager_subpage_types = Edit imagetypes
 imanager_subpage_clear_cache = Delete cache
@@ -41,14 +41,14 @@ imanager_type_cache_delete = delete cache
 imanager_type_system = system imagetype
 
 imanager_effect_list_header = effect of imagetype "{0}"
-imanager_effect_edit_header = imagetype "{0}": edit effect 
+imanager_effect_edit_header = imagetype "{0}": edit effect
 imanager_effect_create_header = imagetype "{0}": create effect
 imanager_effect_caption = list of effects of imagetype "{0}"
 imanager_effect_summary = list of effects of imagetype "{0}"
 imanager_effect_no_effects = no effect found
 imanager_effect_create = create effect
-imanager_effect_edit = edit effect 
-imanager_effect_delete = delete effect 
+imanager_effect_edit = edit effect
+imanager_effect_delete = delete effect
 imanager_effect_name = effect
 imanager_effect_prior = order
 imanager_effect_parameters = parameter
@@ -59,7 +59,7 @@ imanager_effect_brand_image = image
 imanager_effect_brand_hpos = horizontal position
 imanager_effect_brand_vpos = vertical position
 imanager_effect_brand_padding_x = padding x
-imanager_effect_brand_padding_y = padding y 
+imanager_effect_brand_padding_y = padding y
 
 imanager_effect_blur_amount = amount
 imanager_effect_blur_radius = radius
@@ -76,7 +76,7 @@ imanager_effect_resize_imgtosmall = if image is to small
 
 imanager_effect_crop_width = width
 imanager_effect_crop_height = height
-imanager_effect_crop_offset_width = offset width 
+imanager_effect_crop_offset_width = offset width
 imanager_effect_crop_offset_height = offset height
 imanager_effect_crop_position = position
 
