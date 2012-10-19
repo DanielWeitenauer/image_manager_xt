@@ -68,7 +68,7 @@ function precompress_init($params)
 
     if(in_array($img,$precompress_img_list))
     {
-      $compfile = $cachepath.'opi_'.$img;
+      $compfile = $cachepath.'image_manager__PRECOMPRESS_'.$img;
       if(!file_exists($compfile))
       {
         $cmd = $path_to_convert.' -resize "'.$trigger_width.'x'.$trigger_height.'" '.realpath($imagepath).' '.$compfile;
