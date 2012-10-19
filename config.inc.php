@@ -1,9 +1,13 @@
 <?php
 /**
-* ImageMagick Precompress Plugin for image_manager Addon
+* ImageMagick Precompress Plugin for "Image Manager EP" Addon
+*
+* @author http://rexdev.de
+* @link https://github.com/jdlx/precompress.image_manager.plugin
+* @link https://github.com/jdlx/image_manager_ep
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.26
+* @version 0.3.0
 */
 
 
@@ -19,8 +23,8 @@ $Revision = '';
 $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
-'MINORVERSION' => 2,
-'SUBVERSION'   => 26
+'MINORVERSION' => 3,
+'SUBVERSION'   => 0
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
 $REX['ADDON']['title'][$myself]       = 'Precompressor';
