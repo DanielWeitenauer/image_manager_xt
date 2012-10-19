@@ -98,19 +98,12 @@ if($REX['REDAXO'])
   // handle backend pages
   $I18N->appendFile($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/lang/');
 
-  $descPage = new rex_be_page($I18N->msg('imanager_subpage_desc'), array(
+  $confPage = new rex_be_page($I18N->msg('imanager_subpage_types'), array(
       'page'=>'image_manager',
       'subpage'=>''
     )
   );
-  $descPage->setHref('index.php?page=image_manager');
-
-  $confPage = new rex_be_page($I18N->msg('imanager_subpage_types'), array(
-      'page'=>'image_manager',
-      'subpage'=>array('types','effects')
-    )
-  );
-  $confPage->setHref('index.php?page=image_manager&subpage=types');
+  $confPage->setHref('index.php?page=image_manager');
 
   $settingsPage = new rex_be_page($I18N->msg('imanager_subpage_config'), array(
       'page'=>'image_manager',
@@ -128,7 +121,7 @@ if($REX['REDAXO'])
   $ccPage->setLinkAttr('onclick', 'return confirm(\''.$I18N->msg('imanager_type_cache_delete').' ?\')');
 
   $REX['ADDON']['pages'][$mypage] = array (
-    $descPage, $confPage, $settingsPage, $ccPage
+    $confPage, $settingsPage, $ccPage
   );
 
   if(file_exists(dirname(__FILE__).'/plugins')!=false && is_dir(dirname(__FILE__).'/plugins')!=false)
@@ -141,4 +134,13 @@ if($REX['REDAXO'])
     $pluginsPage->setHref('index.php?page=image_manager&subpage=plugins');
     $REX['ADDON']['pages'][$mypage][] = $pluginsPage;
   }
+
+  $descPage = new rex_be_page($I18N->msg('imanager_subpage_desc'), array(
+      'page'=>'image_manager',
+      'subpage'=>'overview'
+    )
+  );
+  $descPage->setHref('index.php?page=image_manager&subpage=overview');
+
+  $REX['ADDON']['pages'][$mypage][] = $descPage;
 }

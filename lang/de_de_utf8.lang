@@ -1,6 +1,6 @@
 # addon:image_manager de_de
 
-imanager_subpage_desc = Erklärung
+imanager_subpage_desc = Hilfe
 imanager_subpage_config = Konfiguration
 imanager_subpage_types = Bildtypen bearbeiten
 imanager_subpage_clear_cache = Cache löschen

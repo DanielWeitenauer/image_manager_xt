@@ -55,6 +55,7 @@ switch($subpage)
   case 'effects' :
   case 'settings' :
   case 'plugins' :
+  case 'overview' :
     break;
 
   default:
@@ -62,7 +63,7 @@ switch($subpage)
     if ($msg != '')
       echo rex_info($msg);
 
-    $subpage = 'overview';
+    $subpage = 'types';
   }
 }
 
