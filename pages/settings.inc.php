@@ -3,7 +3,7 @@
 * Custom Folder Plugin for image_manager Addon
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.14
+* @version 0.2.15
 */
 
 

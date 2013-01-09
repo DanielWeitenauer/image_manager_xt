@@ -3,7 +3,7 @@
 * Custom Folder Plugin for image_manager Addon
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.14
+* @version 0.2.15
 */
 
 
@@ -20,7 +20,7 @@ $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 0,
 'MINORVERSION' => 2,
-'SUBVERSION'   => 14
+'SUBVERSION'   => 15
 );
 $REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
 $REX['ADDON']['title'][$myself]       = 'Image Directory';
