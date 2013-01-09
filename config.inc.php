@@ -10,17 +10,16 @@
  * @link https://github.com/jdlx/image_manager_ep
  *
  * @package redaxo 4.3.x/4.4.x
- * @version 1.2.1
+ * @version 1.2.2
  */
 
 $mypage = 'image_manager';
-$Revision = '';
 
 /* Addon Parameter */
 $REX['ADDON']['rxid'][$mypage] = '679';
 $REX['ADDON']['name'][$mypage] = 'Image Manager EP';
 $REX['ADDON']['perm'][$mypage] = 'image_manager[]';
-$REX['ADDON']['version'][$mypage] = '1.2.1';
+$REX['ADDON']['version'][$mypage] = '1.2.2';
 $REX['ADDON']['author'][$mypage] = 'Markus Staab, Jan Kristinus, jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 $REX['PERM'][] = 'image_manager[]';
