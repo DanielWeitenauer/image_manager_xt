@@ -2,7 +2,11 @@ h1. Allgemein
 
 Dieses Plugin ermöglicht es dem ImageManager Bilder zur Verarbeitung unterzuschieben, die nicht im Ordner @./files@ liegen. Dazu wird im Plugin ein Array von alternativen Ordnern vordefiniert, und diese dann über den Parameter @rex_img_dir@ im Bildaufruf ausgewählt.
 
-_{color:gray;}*Hinweis:* Die Funktionalität ist beschränkt auf den ImageManager, d.h. der Medienpool wird durch dieses Plugin *nicht* erweitert._
+h4. Wichtige Hinweise
+
+* Die Funktionalität ist beschränkt auf den ImageManager, d.h. der Medienpool wird durch dieses Plugin *nicht* erweitert.
+* Die Bilder, auch wenn sie über unterschiedliche Verzeichnisse verteilt sind, müssen *immer eindeutige* Dateinamen haben, auch in Bezug auf die vom Medienpool verwalteten Bilder in @./files/@. Das Caching des ImageManagers basiert allein auf dem Dateinamen, d.h. bei namensgleichen Bildern würde bei einem von beiden dann fälschlicherweise das andere angezeigt.
+* Leer oder Sonderzeichen in Datei oder Ordnernamen sind nicht zulässig.
 
 h1. Settings
 
