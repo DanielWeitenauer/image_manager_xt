@@ -89,6 +89,7 @@ class rex_effect_resize extends rex_effect_abstract
     {
       $this->params['width'] = $w;
       $this->params['height'] = $h;
+      $this->keepTransparent($gdimage);
       return;
     }
 
