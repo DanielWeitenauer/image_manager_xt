@@ -10,13 +10,24 @@
  * @link https://github.com/jdlx/image_manager_ep
  *
  * @package redaxo 4.3.x/4.4.x
- * @version 1.2.2
+ * @version 1.2.3
  */
 
 class rex_image {
 
   var $img;
   var $gifsupport = FALSE;
+
+  function debug($loc,$src=false)
+  {                                 FB::group('debug @ '.$loc, array("Collapsed"=>false));
+    $src = !$src ? $this->img['src'] : $src;
+    while(ob_get_level()) {
+      ob_end_clean();
+    }
+    header('Content-Type: image/PNG');
+    imagepng($src);
+    die;fb('png..');
+  }
 
   function rex_image($filepath)
   {
@@ -37,10 +48,20 @@ class rex_image {
     $this->img['format'] = strtoupper(OOMedia::_getExtension($this->img['filepath']));
   }
 
+
+  function keepTransparent($des)
+  {
+    if ($this->img['format'] == 'PNG')
+    {
+      imagealphablending($des, false);
+      imagesavealpha($des, true);
+    }
+  }
+
   /*public*/ function prepare()
   {
     if(!isset($this->img['src']))
-    {
+    {                  FB::group(__CLASS__.'::'.__FUNCTION__, array("Collapsed"=>false));
       // ----- gif support ?
       $this->gifsupport = function_exists('imagegif');
 
@@ -54,7 +75,11 @@ class rex_image {
       }elseif ($this->img['format'] == 'PNG')
       {
         // --- PNG
-        $this->img['src'] = @imagecreatefrompng($this->img["filepath"]);
+        $this->img['src'] = @ImageCreateFromPNG($this->img["filepath"]);
+
+        $this->keepTransparent($this->img['src']);
+
+        $this->debug(__CLASS__.'::'.__FUNCTION__);
       }elseif ($this->img['format'] == 'GIF')
       {
         // --- GIF
@@ -74,7 +99,7 @@ class rex_image {
       }else
       {
         $this->refreshDimensions();
-      }
+      }        FB::groupEnd();
     }
   }
 
@@ -155,7 +180,7 @@ class rex_image {
     header('Content-Type: image/'.$format);
     if(isset($params["Content-Length"]))
     {
-      header('Content-Length: ' . $params["Content-Length"]);
+      #header('Content-Length: ' . $params["Content-Length"]);
     }
   }
 
