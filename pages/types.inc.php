@@ -76,29 +76,25 @@ if ($func == '')
   $list->setNoRowsMessage($I18N->msg('imanager_type_no_types'));
   $list->setCaption($I18N->msg('imanager_type_caption'));
   $list->addTableAttribute('summary', $I18N->msg('imanager_type_summary'));
-  $list->addTableColumnGroup(array(40, 100, '*', 120, 120, 120));
+  $list->addTableColumnGroup(array(40, 100, '*', 120, 120));
 
   $list->removeColumn('id');
   $list->removeColumn('status');
   $list->setColumnLabel('name',$I18N->msg('imanager_type_name'));
-  $list->setColumnParams('name', array('func' => 'edit', 'type_id' => '###id###'));
+  $list->setColumnParams('name', array('subpage' => 'effects', 'type_id' => '###id###'));
   $list->setColumnLabel('description',$I18N->msg('imanager_type_description'));
 
   // icon column
   $thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">'. $I18N->msg('imanager_type_create') .'</span></a>';
-  $tdIcon = '<span class="rex-i-element rex-i-generic"><span class="rex-i-element-text">###name###</span></span>';
+  $tdIcon = '<span class="rex-i-element rex-i-list"><span class="rex-i-element-text">###name###</span></span>';
   $list->addColumn($thIcon, $tdIcon, 0, array('<th class="rex-icon">###VALUE###</th>','<td class="rex-icon">###VALUE###</td>'));
   $list->setColumnParams($thIcon, array('func' => 'edit', 'type_id' => '###id###'));
 
   // functions column spans 2 data-columns
   $funcs = $I18N->msg('imanager_type_functions');
-  $list->addColumn($funcs, $I18N->msg('imanager_type_effekts_edit'), -1, array('<th colspan="3">###VALUE###</th>','<td>###VALUE###</td>'));
-  $list->setColumnParams($funcs, array('type_id' => '###id###', 'subpage' => 'effects'));
-
-  $delete = 'deleteCache';
-  $list->addColumn($delete, $I18N->msg('imanager_type_cache_delete'), -1, array('','<td>###VALUE###</td>'));
-  $list->setColumnParams($delete, array('type_id' => '###id###', 'func' => 'delete_cache'));
-  $list->addLinkAttribute($delete, 'onclick', 'return confirm(\''.$I18N->msg('imanager_type_cache_delete').' ?\')');
+  $list->addColumn($funcs, $I18N->msg('imanager_type_cache_delete'), -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
+  $list->setColumnParams($funcs, array('type_id' => '###id###', 'func' => 'delete_cache'));
+  $list->addLinkAttribute($funcs, 'onclick', 'return confirm(\''.$I18N->msg('imanager_type_cache_delete').' ?\')');
 
   // remove delete link on internal types (status == 1)
   $delete = 'deleteType';
