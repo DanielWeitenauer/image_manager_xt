@@ -70,7 +70,17 @@ if ($warning != '')
 echo '<div class="rex-addon-output-v2">';
 if ($func == '' && $type_id > 0)
 {
-  echo rex_content_block($I18N->msg('imanager_effect_list_header', htmlspecialchars($typeName)));
+  // IMG TYPE JUMP SELECT
+  ////////////////////////////////////////////////////////////////////////////
+  $sel = new rex_select();
+  $sel->setSize(1);
+  $sel->setName('img_type_jump');
+  $sel->setId('img_type_jump');
+  $sel->addSqlOptions('SELECT `name`,`id` FROM `rex_679_types` ORDER BY `status` ASC');
+  $sel->setSelected(rex_request('type_id','int'));
+  $img_type_select = $sel->get();
+
+  echo rex_content_block($I18N->msg('imanager_effect_type_select_header').$img_type_select);
 
   $query = 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_type_effects WHERE type_id='.$type_id .' ORDER BY prior';
 
@@ -107,6 +117,16 @@ if ($func == '' && $type_id > 0)
   $list->addLinkAttribute($delete, 'onclick', 'return confirm(\''.$I18N->msg('delete').' ?\')');
 
   $list->show();
+
+  echo '
+  <script>
+      // IMG TYPE JUMP
+      jQuery("#img_type_jump").change(function(){
+        window.location = "index.php?page=image_manager&subpage=effects&type_id="+jQuery(this).val();
+        return true;
+      });
+    </script>
+  ';
 }
 elseif ($func == 'add' && $type_id > 0 ||
         $func == 'edit' && $effect_id > 0 && $type_id > 0)

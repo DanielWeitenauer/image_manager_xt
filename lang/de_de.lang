@@ -41,6 +41,7 @@ imanager_type_cache_delete = Cache löschen
 imanager_type_system = System Bildtyp
 
 imanager_effect_list_header = Effekte des Bildtyps "{0}"
+imanager_effect_type_select_header = Effekte des Bildtyps:
 imanager_effect_edit_header = Bildtyp "{0}": Effekt bearbeiten
 imanager_effect_create_header = Bildtyp "{0}": Effekt erstellen
 imanager_effect_caption = Liste der angelegten Effekte des Bildtyps "{0}"

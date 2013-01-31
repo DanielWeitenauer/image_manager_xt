@@ -41,6 +41,7 @@ imanager_type_cache_delete = delete cache
 imanager_type_system = system imagetype
 
 imanager_effect_list_header = effect of imagetype "{0}"
+imanager_effect_type_select_header = effect of imagetype:
 imanager_effect_edit_header = imagetype "{0}": edit effect
 imanager_effect_create_header = imagetype "{0}": create effect
 imanager_effect_caption = list of effects of imagetype "{0}"
