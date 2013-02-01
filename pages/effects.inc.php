@@ -88,11 +88,11 @@ if ($func == '' && $type_id > 0)
   $list->setNoRowsMessage(htmlspecialchars($I18N->msg('imanager_effect_no_effects')));
   $list->setCaption(htmlspecialchars($I18N->msg('imanager_effect_caption', $typeName)));
   $list->addTableAttribute('summary', htmlspecialchars($I18N->msg('imanager_effect_summary', $typeName)));
-  $list->addTableColumnGroup(array(40, '*', 40, 130, 130));
+  $list->addTableColumnGroup(array(40, '*', '*', 40, 130));
 
   $list->removeColumn('id');
   $list->removeColumn('type_id');
-  $list->removeColumn('parameters');
+  $list->setColumnLabel('parameters',htmlspecialchars($I18N->msg('imanager_type_parameters')));
   $list->removeColumn('updatedate');
   $list->removeColumn('updateuser');
   $list->removeColumn('createdate');
@@ -102,19 +102,25 @@ if ($func == '' && $type_id > 0)
 
   // icon column
   $thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('type_id' => $type_id, 'func' => 'add')) .'"><span class="rex-i-element-text">'. htmlspecialchars($I18N->msg('imanager_effect_create')) .'</span></a>';
-  $tdIcon = '<span class="rex-i-element rex-i-generic"><span class="rex-i-element-text">###name###</span></span>';
+  $tdIcon = '<span class="rex-i-element rex-i-list"><span class="rex-i-element-text">###name###</span></span>';
   $list->addColumn($thIcon, $tdIcon, 0, array('<th class="rex-icon">###VALUE###</th>','<td class="rex-icon">###VALUE###</td>'));
   $list->setColumnParams($thIcon, array('func' => 'edit', 'type_id' => $type_id, 'effect_id' => '###id###'));
 
-  // functions column spans 2 data-columns
-  $funcs = $I18N->msg('imanager_effect_functions');
-  $list->addColumn($funcs, $I18N->msg('imanager_effect_edit'), -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
-  $list->setColumnParams($funcs, array('func' => 'edit', 'type_id' => $type_id, 'effect_id' => '###id###'));
+  // PARAMETERS COLUMN
+  function imm_effect_parameters_format($params)
+  {
+    global $type_id;
+    $parameters = unserialize($params['value']);
+    $parameters = $parameters['rex_effect_'.$params['list']->getValue('effect')];
+    return '<a href="index.php?list='.$params['list']->name.'&page=image_manager&subpage=effects&func=edit&type_id='.$type_id.'&effect_id=###id###" class="rex_effect_parameters">'.implode(' | ',array_values($parameters)).'</a>';
+  }
+  $list->setColumnFormat('parameters'  ,'custom', 'imm_effect_parameters_format');
 
-  $delete = 'deleteCol';
-  $list->addColumn($delete, $I18N->msg('imanager_effect_delete'), -1, array('','<td>###VALUE###</td>'));
-  $list->setColumnParams($delete, array('type_id' => $type_id, 'effect_id' => '###id###', 'func' => 'delete'));
-  $list->addLinkAttribute($delete, 'onclick', 'return confirm(\''.$I18N->msg('delete').' ?\')');
+  // functions column
+  $funcs = $I18N->msg('imanager_effect_functions');
+  $list->addColumn($funcs, $I18N->msg('imanager_effect_delete'), -1, array('<th>###VALUE###</th>','<td>###VALUE###</td>'));
+  $list->setColumnParams($funcs, array('type_id' => $type_id, 'effect_id' => '###id###', 'func' => 'delete'));
+  $list->addLinkAttribute($funcs, 'onclick', 'return confirm(\''.$I18N->msg('delete').' ?\')');
 
   $list->show();
 

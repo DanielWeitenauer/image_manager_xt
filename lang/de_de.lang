@@ -34,6 +34,7 @@ imanager_type_edit = Bildtyp bearbeiten
 imanager_type_effekts_edit = Effekte bearbeiten
 imanager_type_delete = Bildtyp löschen
 imanager_type_name = Name
+imanager_type_parameters = Parameter
 imanager_type_prior = Prio
 imanager_type_description = Beschreibung
 imanager_type_functions = Funktionen

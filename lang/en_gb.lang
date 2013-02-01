@@ -34,6 +34,7 @@ imanager_type_edit = edit imagetype
 imanager_type_effekts_edit = edit effect
 imanager_type_delete = delete imagetype
 imanager_type_name = name
+imanager_type_parameters = parameters
 imanager_type_prior = prio
 imanager_type_description = description
 imanager_type_functions = function

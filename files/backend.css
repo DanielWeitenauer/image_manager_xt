@@ -160,6 +160,10 @@ code.xform-form-code a:hover {
   color:black;
   }
 
+a.rex_effect_parameters {
+  /*white-space: nowrap;*/
+  }
+
 /*REDMINE RSS*/
 
 .im-plugins ul.redmine-feed {
