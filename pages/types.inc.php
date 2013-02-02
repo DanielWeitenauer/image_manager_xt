@@ -30,17 +30,27 @@ if((rex_post('func') == 'edit' || $func == 'delete')
 //  $info = $I18N->msg('imanager_cache_files_removed', $counter);
 }
 
-//-------------- delete type
+
+// DELETE IMAGE TYPE & ASSOCIATED EFFECTS
+////////////////////////////////////////////////////////////////////////////////
 if($func == 'delete' && $type_id > 0)
 {
   $sql = rex_sql::factory();
-//  $sql->debugsql = true;
   $sql->setTable($REX['TABLE_PREFIX'].'679_types');
   $sql->setWhere('id='. $type_id . ' LIMIT 1');
 
   if($sql->delete())
   {
-     $info = $I18N->msg('imanager_type_deleted') ;
+    $sql->setTable($REX['TABLE_PREFIX'].'679_type_effects');
+    $sql->setWhere('type_id='. $type_id);
+    if($sql->delete())
+    {
+      $info = $I18N->msg('imanager_type_deleted');
+    }
+    else
+    {
+      $warning = $sql->getErrro();
+    }
   }
   else
   {
@@ -57,6 +67,49 @@ if($func == 'delete_cache' && $type_id > 0)
 
   $func = '';
 }
+
+
+// DUPLICATE IMAGE TYPE
+////////////////////////////////////////////////////////////////////////////////
+if($func == 'duplicate' && $type_id > 0)
+{
+  $db       = rex_sql::factory();
+  $type_qry = 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types WHERE `id`='.$type_id;
+  $db->setQuery($type_qry);
+  if($db->getRows()==1)
+  {
+    // GET IMG_TYPE DATA
+    ////////////////////////////////////////////////////////////////////////////
+    $type        = array_shift($db->getArray($type_qry));
+    $effects     = $db->getArray('SELECT * FROM '.$REX['TABLE_PREFIX'].'679_type_effects
+                                  WHERE `type_id`='.$type['id']);
+
+    // INSERT THE COPY
+    ////////////////////////////////////////////////////////////////////////////
+    if($db->setQuery('INSERT INTO '.$REX['TABLE_PREFIX'].'679_types VALUES (\'\',0,\''.$type['name'].'_copy\',\''.$type['description'].'\');'))
+    {
+      $insert_id = $db->getLastId();
+      foreach($effects as $e)
+      {
+        if(!$db->setQuery('INSERT INTO '.$REX['TABLE_PREFIX'].'679_type_effects VALUES (\'\','.$insert_id.',\''.$e['effect'].'\',\''.$e['parameters'].'\',\''.$e['prior'].'\',\''.time().'\',\''.$REX['USER']->getValue('login').'\',\''.time().'\',\''.$REX['USER']->getValue('login').'\');'))
+        {
+          $warning = $I18N->msg('imanager_type_effect_insert_failed');
+        }
+      }
+      if($warning=='')
+      {
+        $info = $I18N->msg('imanager_type_duplicated');
+      }
+    }
+  }
+  else
+  {
+    $warning = $I18N->msg('imanager_type_not_found');
+  }
+
+  $func = '';
+}
+
 
 //-------------- output messages
 if ($info != '')
@@ -115,6 +168,30 @@ if ($func == '')
   );
 
   $list->show();
+
+  // IMG TYPE DUPLICATOR SELECT
+  ////////////////////////////////////////////////////////////////////////////
+  $sel = new rex_select();
+  $sel->setSize(1);
+  $sel->setName('img_type_duplicator');
+  $sel->setId('img_type_duplicator');
+  $sel->addOption('','');
+  $sel->addSqlOptions('SELECT `name`,`id` FROM `rex_679_types` ORDER BY `status` ASC');
+  #$sel->setSelected(rex_request('type_id','int'));
+  $img_type_duplicator = $sel->get();
+  echo '<br />';
+  echo rex_content_block('<strong>'.$I18N->msg('imanager_type_duplicate').'</strong>'.$img_type_duplicator);
+
+  echo '
+  <script>
+      // IMG TYPE DUPLICATOR
+      jQuery("#img_type_duplicator").change(function(){
+        window.location = "index.php?page=image_manager&func=duplicate&type_id="+jQuery(this).val();
+        return true;
+      });
+    </script>
+  ';
+
 }
 elseif ($func == 'add' ||
         $func == 'edit' && $type_id > 0)
