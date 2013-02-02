@@ -34,14 +34,21 @@ $REX['PERM'][]                        = $myself.'[]';
 // --- DYN
 $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_file"] = '';
 $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["rex_img_type"] = '';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["allowed_hosts"] = '';
 // --- /DYN
+
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
 if(isset($_SERVER['HTTP_REFERER']) && isset($_GET['rex_img_file']) && isset($_GET['rex_img_type']))
 {
-  $referrer = parse_url($_SERVER['HTTP_REFERER']);
-  if($referrer['host']!=$_SERVER['HTTP_HOST'])
+  $allowed_hosts   = $REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["allowed_hosts"] != ''
+                   ? explode(',',$REX["ADDON"]["image_manager"]["PLUGIN"]["referrer_block.image_manager.plugin"]["allowed_hosts"])
+                   : array();
+  $allowed_hosts[] = $_SERVER['HTTP_HOST'];
+  $referrer        = parse_url($_SERVER['HTTP_REFERER']);
+
+  if(!in_array($referrer['host'],$allowed_hosts))
   {
     rex_register_extension('IMAGE_MANAGER_INIT','referrer_block_init');
 
@@ -55,7 +62,7 @@ if(isset($_SERVER['HTTP_REFERER']) && isset($_GET['rex_img_file']) && isset($_GE
       if($replace_file!='')
       {
         $params['subject']['rex_img_file'] = $replace_file;
-        $params['subject']['imagepath'] = $REX['HTDOCS_PATH'].'/files/'.$replace_file;
+        $params['subject']['imagepath']    = $REX['HTDOCS_PATH'].'/files/'.$replace_file;
       }
 
       if($replace_type!='')

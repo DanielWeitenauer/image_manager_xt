@@ -1,16 +1,18 @@
 h1. Allgemein
 
-Dieses Plugin ermöglicht es auf direkte Verlinkung eines Bildes durch Dritte _(aka image deep-linking)_ zu reagieren. Dafür wird der @$_SERVER['HTTP_REFERER']@ der Anfrage ausgewertet: ist die Domain des Referrers nicht mit der eigenen identisch, wird entsprechnd den Einstellungen reagiert. 
+Dieses Plugin ermöglicht es auf direkte Verlinkung eines Bildes durch Dritte _(aka image deep-linking)_ zu reagieren. Dafür wird der @$_SERVER['HTTP_REFERER']@ der Anfrage ausgewertet: ist die Domain des Referrers nicht mit der eigenen identisch, wird entsprechnd den Einstellungen reagiert.
 
 _{color:gray;}*Hinweis:* Direkte file-links auf eine Bilddatei im ./files Ordner - also ohne Bearbeitung durch den ImageManager - können auf diese Weise nicht abgefangen werden, hierfür muß man sich passende Regeln für die .htaccess zusammenstellen._
 
 h1. Settings
 
-Die beiden Einstellungen können einzeln oder auch gemischt verwendet werden. 
+Die beiden Einstellungen können einzeln oder auch gemischt verwendet werden.
 Wird eine leer gelassen, wird der Originalwert verwendet.
 
 * *Ersatz-Bilddatei:* Bilddatei die anstelle des Originals angezeigt werden soll.
 * *Ersatz-Bildtyp:*  Bildtyp der anstelle des Originals verwendet werden soll.
+* *Hosts Whitelist:*  Hosts die deep-links setzen dürfen ohne daß das Plugin aktiv wird.
+Hosts sind wie folgt kommasepariert einzugeben: @DOMAIN.TLD,DOMAIN.TLD,SUBDOMAIN.DOMAIN.TLD, ...@
 
 h1. Beispiel
 
