@@ -39,8 +39,28 @@ $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin']['ca
 // --- DYN
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_width"]   = 1500;
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_height"]  = 1500;
-$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = '/usr/bin/convert';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = '';
 // --- /DYN
+
+
+// CHECK PATH TO CONVERT
+////////////////////////////////////////////////////////////////////////////////
+if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"]=='')
+{
+  $cmd = 'which convert';
+  exec($cmd, $out ,$ret);
+  switch($ret)
+  {
+    case 0:
+      $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = $out[0];
+    break;
+    case 1:
+      $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = 'Could not determine path to <code>convert</code> using <code>which convert</code> ..<br />Check if your server does have <code>Imagemagick</code> available and provide path to convert manually.';
+      return;
+    break;
+    default:
+  }
+}
 
 
 // MAIN

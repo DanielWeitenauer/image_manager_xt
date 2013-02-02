@@ -32,6 +32,19 @@ $REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["path_to_convert"] = \''
   echo rex_info('Einstellungen wurden gespeichert.');
 }
 
+// REX INFO/WARNING FROM CONFIG
+////////////////////////////////////////////////////////////////////////////////
+if(isset($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'])){
+  foreach($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'] as $w){
+    echo rex_warning($w);
+  }
+}
+if(isset($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_info'])){
+  foreach($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_info'] as $i){
+    echo rex_info($i);
+  }
+}
+
 // FORM
 return
 '
