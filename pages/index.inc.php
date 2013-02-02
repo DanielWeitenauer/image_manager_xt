@@ -10,7 +10,7 @@
  * @link https://github.com/jdlx/image_manager_ep
  *
  * @package redaxo 4.3.x/4.4.x
- * @version 1.2.3
+ * @version 1.2.4
  */
 
 require_once (dirname(__FILE__). '/../functions/function_rex_effects.inc.php');
@@ -48,7 +48,7 @@ if ($subpage == 'clear_cache')
   $msg = $I18N->msg('imanager_cache_files_removed', $c);
 }
 
-rex_title('Image Manager EP <span class="addonversion">'.$REX['ADDON']['version']['image_manager'].'</span>', $REX['ADDON']['pages']['image_manager']);
+rex_title('Image Manager Pro <span class="addonversion">'.$REX['ADDON']['version']['image_manager'].'</span>', $REX['ADDON']['pages']['image_manager']);
 
 // Include Current Page
 switch($subpage)
