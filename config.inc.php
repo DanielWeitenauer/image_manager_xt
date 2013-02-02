@@ -7,7 +7,7 @@
 * @link https://github.com/jdlx/image_manager_ep
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.3.0
+* @version 1.3.1
 */
 
 
@@ -19,14 +19,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$Revision = '';
-$REX['ADDON'][$myself]['VERSION'] = array
-(
-'VERSION'      => 0,
-'MINORVERSION' => 3,
-'SUBVERSION'   => 0
-);
-$REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
+$REX['ADDON']['version'][$myself]     = '1.3.1';
 $REX['ADDON']['title'][$myself]       = 'Precompressor';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';
@@ -128,16 +121,18 @@ function refresh_precompress_img_list()
   $cachefile       = $myREX['cachefile'];
   $img_list        = array();
 
-  if(file_exists($cachefile))
-  {
-    unlink($cachefile);
-  }
-
   $db = new rex_sql();
   $db->setQuery('SELECT `filename`
                  FROM `rex_file`
-                 WHERE `width` >='.$trigger_width.'
-                 OR `height` >='.$trigger_height);
+                 WHERE (`width` >='.$trigger_width.'
+                     OR `height` >='.$trigger_height.')
+                 AND (`filetype`="image/gif"
+                   OR `filetype`="image/png"
+                   OR `filetype`="image/x-png"
+                   OR `filetype`="image/pjpeg"
+                   OR `filetype`="image/jpeg"
+                   OR `filetype`="image/jpg"
+                   OR `filetype`="image/bmp");');
   while($db->hasNext())
   {
     $img_list[] = $db->getValue('filename');

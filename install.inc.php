@@ -7,7 +7,7 @@
 * @link https://github.com/jdlx/image_manager_ep
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.3.0
+* @version 1.3.1
 */
 
 $error = '';
