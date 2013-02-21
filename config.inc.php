@@ -34,6 +34,7 @@ $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["tr
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_height"]  = 1000;
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = '';
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"] = '';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_token"] = '';
 // --- /DYN
 
 
@@ -41,7 +42,7 @@ $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["se
 ////////////////////////////////////////////////////////////////////////////////
 if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"]=='')
 {
-  $cmd = 'which convertxr';
+  $cmd = 'which convert';
   exec($cmd, $out ,$ret);
   switch($ret)
   {
@@ -50,7 +51,9 @@ if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"][
     break;
     case 1:
       $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = 'Could not determine path to <code>convert</code> using <code>which convert</code> ..<br />Check if your server does have <code>Imagemagick</code> available and provide path to convert manually.';
-      #return;
+      if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"]==''){
+        return; // NOTHING TO DO .. EXIT
+      }
     break;
     default:
   }
@@ -86,6 +89,7 @@ function precompress_init($params)
     $trigger_height  = $myREX['trigger_height'];
     $path_to_convert = $myREX['path_to_convert'];
     $service_url     = $myREX['service_url'];
+    $service_token   = $myREX['service_token'];
 
     $img             = $params['subject']['rex_img_file'];
     $imagepath       = $params['subject']['imagepath'];
@@ -115,6 +119,7 @@ function precompress_init($params)
           try
           {
             $data['name'] = "resize";
+            $data['token'] = $service_token;
             $files = array(
                        'file' => array(
                          'path' => realpath($imagepath),

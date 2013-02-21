@@ -19,13 +19,15 @@ if ($func == 'save_settings')
   $REX['ADDON']['image_manager']['PLUGIN'][$myself]['trigger_width']   = rex_request('trigger_width','int');
   $REX['ADDON']['image_manager']['PLUGIN'][$myself]['trigger_height']  = rex_request('trigger_height','int');
   $REX['ADDON']['image_manager']['PLUGIN'][$myself]['path_to_convert'] = rex_request('path_to_convert','string');
-  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['service_url'] = rex_request('service_url','string');
+  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['service_url']     = rex_request('service_url','string');
+  $REX['ADDON']['image_manager']['PLUGIN'][$myself]['service_token']   = rex_request('service_token','string');
 
   $content =
 '$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["trigger_width"]   = '.rex_request('trigger_width','int').';
 $REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["trigger_height"]  = '.rex_request('trigger_height','int').';
 $REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["path_to_convert"] = \''.rex_request('path_to_convert','string').'\';
 $REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["service_url"] = \''.rex_request('service_url','string').'\';
+$REX["ADDON"]["image_manager"]["PLUGIN"]["'.$myself.'"]["service_token"] = \''.rex_request('service_token','string').'\';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself.'/config.inc.php';
@@ -91,6 +93,15 @@ return
           <label for="service_url">Service URL</label>
           <input id="service_url" class="rex-form-text" type="text" name="service_url" value="'.
           $REX['ADDON']['image_manager']['PLUGIN'][$myself]['service_url'].
+          '" />
+        </p>
+      </div><!-- /rex-form-row -->
+
+      <div class="rex-form-row">
+        <p class="rex-form-col-a rex-form-text">
+          <label for="service_token">Service Token</label>
+          <input id="service_token" class="rex-form-text" type="text" name="service_token" value="'.
+          $REX['ADDON']['image_manager']['PLUGIN'][$myself]['service_token'].
           '" />
         </p>
       </div><!-- /rex-form-row -->
