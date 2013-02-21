@@ -1,0 +1,59 @@
+h2. Image Manager Pro
+
+Diese Version des image_manager Addons basiert auf dem standard ImageManager und ist um folgende features erweitert:
+
+* "(blank)Extension Points":http://www.redaxo.org/de/doku/tutorials/addon-entwicklung-in-7-folgen/addon-entwicklung-teil-5---extension-points/ um per Plugins in die Bildverarbeitung eingreifen zu können.
+* Verfügbare Plugins:
+** *Rex Resize* Ersetzt das Image_Resize Addon und bildet dessen Funktionen im image_Manager ab.
+** *Precompress* Ermöglicht die Verarbeitung von Bildern, die für die normale Verarbeitung mit der GD lib zu groß sind.
+** *Image Directory* Ermögliches Bilder außerhalb des ./files Ordners durch den ImageManager zu bearbeiten
+** *Referrer Block* Ermöglicht es auf image deep-links (aka Bilderklau) zu reagieren.
+* Zusätzliche Effekt-Klassen:
+** class.rex_effect_img_interlace.inc.php
+** class.rex_effect_jpg_quality.inc.php
+** class.rex_effect_roundcorners.inc.php
+* UI Verbesserungen:
+** Klick auf den Namen eines Bildtyps öffnet dessen Effekt-Einstellungen (und nicht mehr die Beschreibung des Bildtypes - diese ist über das linke Iconzeile erreichbar)
+** Bildtypen können einfach dupliziert werden.
+** In der Effektansicht kann man direkt zwischen Bildtypen springen
+** In der Effektansicht werden die Einstellungen des jeweiligen Effekts direkt angezeigt
+
+h2. Screenshots
+
+
+
+h5. Backend Page Bildtypen
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_imtype_settings.png!
+
+h5. Backend Page Bildtyp-Effekt
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_effekts_overview.png!
+
+h5. Backend Page RexResize Plugin
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_precompressor_plugin.png!
+
+h5. Backend Page Precompressor Plugin
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_precompressor_plugin.png!
+
+h5. Backend Page ReferrerBlock Plugin
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_referrer_block_plugin.png!
+
+h5. Backend Page ImgDir Plugin
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_img_directory_plugin.png!
+
+
+
+h2. ExtensionPoints
+
+*1.* @IMAGE_MANAGER_INIT@ : Dieser EP wird sehr früh im Verlauf des IM Codes aufgerufen (in der _config.inc.php_), er erlaubt Zugriff auf folgende Variablen im übergebenen @$params@ array: @rex_img_type@. @rex_img_file@, @imagepath@, @cachepath@
+
+*2.* @IMAGE_MANAGER_FILTERSET@ : In diesem EP (in der _class.rex_image_manager.inc.php_) wird der @image_type@ samt dem für ihn definierten Filterset übergeben. D.h. man kann an dieser Stelle die für diesen Bildtyp definierten Filter und ihre Parameter bearbeiten, als auch weitere hinzufügen, bzw. ganz neue erstellen. Weiterhin kann man an dieser Stelle ad hoc einen "virtuellen" image_type samt Filterset erzeugen (über diesen Weg wird z.b. die rex_resize/rex_filter Funktionalität des _rex_resize.imagemanager.plugin_ im IM nachgebildet).
+
+h2. Repo
+
+"https://github.com/jdlx/image_manager_ep":https://github.com/jdlx/image_manager_ep
