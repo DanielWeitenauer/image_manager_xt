@@ -7,7 +7,7 @@
 * @link https://github.com/jdlx/image_manager_ep
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 1.3.1
+* @version 1.5.0
 */
 
 
@@ -19,7 +19,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$myself]     = '1.3.1';
+$REX['ADDON']['version'][$myself]     = '1.5.0';
 $REX['ADDON']['title'][$myself]       = 'Precompressor';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';
