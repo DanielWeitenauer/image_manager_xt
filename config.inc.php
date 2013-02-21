@@ -13,7 +13,7 @@
 
 // ADDON IDENTIFIER & ROOT DIR
 ////////////////////////////////////////////////////////////////////////////////
-$myself = 'precompress.image_manager.plugin';         FB::log($myself,' $myself');
+$myself = 'precompress.image_manager.plugin';
 $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 
@@ -50,18 +50,24 @@ if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"][
     break;
     case 1:
       $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = 'Could not determine path to <code>convert</code> using <code>which convert</code> ..<br />Check if your server does have <code>Imagemagick</code> available and provide path to convert manually.';
-      return;
+      #return;
     break;
     default:
   }
 }
 
 
+// INCLUDES
+////////////////////////////////////////////////////////////////////////////////
+if(!class_exists('rex_socket')){
+  require_once($myroot.'/classes/class.rex_socket.inc.php');
+}
+
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
 if(!file_exists($REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin']['cachefile']))
 {
-  refresh_precompress_img_list();         FB::log('refreshing..');
+  refresh_precompress_img_list();
 }
 
 rex_register_extension('IMAGE_MANAGER_INIT','precompress_init');
@@ -69,7 +75,7 @@ rex_register_extension('MEDIA_ADDED'       ,'refresh_precompress_img_list');
 rex_register_extension('MEDIA_UPDATED'     ,'refresh_precompress_img_list');
 
 function precompress_init($params)
-{                                                                               FB::group(__CLASS__.'::'.__FUNCTION__, array("Collapsed"=>false));
+{
   if($params['subject']['rex_img_file']!='')
   {
     global $REX;
@@ -79,7 +85,7 @@ function precompress_init($params)
     $trigger_width   = $myREX['trigger_width'];
     $trigger_height  = $myREX['trigger_height'];
     $path_to_convert = $myREX['path_to_convert'];
-    $service_url     = $myREX['service_url'];    FB::log($service_url,' $service_url');
+    $service_url     = $myREX['service_url'];
 
     $img             = $params['subject']['rex_img_file'];
     $imagepath       = $params['subject']['imagepath'];
@@ -87,30 +93,49 @@ function precompress_init($params)
 
     if(in_array($img,$precompress_img_list))
     {
-      $compfile = $cachepath.'image_manager__PRECOMPRESS_'.$img;         FB::log($compfile,' $compfile');
+      $compfile = $cachepath.'image_manager__PRECOMPRESS_'.$img;
       if(!file_exists($compfile))
       {
+
         // USING IMAGEMAGICK
-        if($path_to_convert!=''){
+        ////////////////////////////////////////////////////////////////////////
+        if($path_to_convert!='')
+        {
           $cmd = $path_to_convert.' -resize "'.$trigger_width.'x'.$trigger_height.'" '.realpath($imagepath).' '.$compfile;
           exec($cmd, $out = array(),$ret);
           if($ret!=0) {
             trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: exec() returns error "'.$ret.'"', E_USER_WARNING);
           }
+
         // USING EXTERNAL SERVICE
-        }elseif($service_url!=''){
-
-              $file_name_with_full_path = realpath($imagepath);
-              $post_data['name'] = "resize";
-              $post_data['file'] = "@".$file_name_with_full_path;         FB::log($post_data,' $post_data');
-              $ch = curl_init();
-              curl_setopt($ch, CURLOPT_URL, $service_url);
-              curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-              curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-              curl_setopt($ch, CURLOPT_VERBOSE, 1);
-              $response = curl_exec($ch);
-              file_put_contents($compfile, $response);
-
+        ////////////////////////////////////////////////////////////////////////
+        }
+        elseif($service_url!='')
+        {
+          try
+          {
+            $data['name'] = "resize";
+            $files = array(
+                       'file' => array(
+                         'path' => realpath($imagepath),
+                         'type' => 'application/octet-stream'
+                         )
+                       );
+            $socket = rex_socket::createByUrl($service_url);
+            $socket->doPost($data,$files);
+            if($socket->getStatus() == 200)
+            {
+              $socket->writeBodyTo($compfile);
+            }
+            else
+            {
+              trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: rex_socket failed with status: '.$socket->getStatus(), E_USER_WARNING);
+            }
+          }
+          catch(rex_socket_exception $e)
+          {
+            trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: rex_socket exception: '.$e->getMessage(), E_USER_WARNING);
+          }
         }
       }
 
@@ -121,7 +146,7 @@ function precompress_init($params)
       else
       {
         trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: could not create precompressed file', E_USER_WARNING);
-      }         FB::groupEnd();
+      }
     }
 
   }
