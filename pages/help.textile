@@ -12,11 +12,39 @@ ImageMagick's @convert@ sowie die Rechte selbiges über @exec()@ auszuführen. D
 
 h2. "(jsopenwin)Domainfactory _{font-weight:normal}(affiliate link)_":http://df.eu/kwk/117269, "(jsopenwin)GN2-Hosting":http://www.gn2-hosting.de?ref=precompress_im_plugin
 
+h1. Fallback Service
+
+Falls @exec()@ und/oder @convert@ nicht zur Verfügung stehen, kann für den resize ein externer Service aufgerufen werden.
+Es werden folgende Daten an die API per POST verschickt:
+
+*$_POST:*
+
+bc. array (
+  'name'  => 'resize',
+  'token' => // TOKEN,
+)
+
+*$_FILES:*
+
+bc. array (
+  'file' =>
+  array (
+    'name'     => // DATEINAME,
+    'type'     => 'application/octet-stream',
+    'tmp_name' => // PFAD DES TMP FILES,
+    'error'    => 0,
+    'size'     => // DATEIGRÖSSE,
+  ),
+)
+
 h1. Settings
 
-* *trigger_width*   Bildbreite ab der das Plugin eingreift
-* *trigger_height*  Bildhöhe ab der das Plugin eingreift
-* *path_to_convert* Pfad zum @convert@ binary auf dem Server
+* *Trigger Width*   Bildbreite ab der das Plugin eingreift
+* *Trigger Height*  Bildhöhe ab der das Plugin eingreift
+* *Convert Path* Pfad zum @convert@ binary auf dem Server
+* *Service URL* URL über die ein externer Resize Service aufrufbar ist.
+* *Service Token* Auth Token der an die API des externen Services geschickt wird.
+
 
 h1. Beispiel
 
