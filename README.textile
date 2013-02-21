@@ -32,7 +32,7 @@ h5. Backend Page Bildtyp-Effekt
 
 h5. Backend Page RexResize Plugin
 
-!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_precompressor_plugin.png!
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_image_manager_rex_resize_plugin.png!
 
 h5. Backend Page Precompressor Plugin
 
