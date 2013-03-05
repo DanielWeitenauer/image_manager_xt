@@ -39,18 +39,22 @@ require_once (dirname(__FILE__). '/classes/class.rex_image_cacher.inc.php');
 require_once (dirname(__FILE__). '/classes/class.rex_image_manager.inc.php');
 require_once (dirname(__FILE__). '/classes/class.rex_effect_abstract.inc.php');
 
+//--- handle image request
+$rex_img_file = rex_get('rex_img_file', 'string');
+$rex_img_type = rex_get('rex_img_type', 'string');
 
-// RUN ON ADDONS_INCLUDED
+
+
+// RUN ON EP ADDONS_INCLUDED
 ////////////////////////////////////////////////////////////////////////////////
-rex_register_extension('ADDONS_INCLUDED',
-  function() use($REX)
-  {
-    $rex_img_file = rex_get('rex_img_file', 'string');
-    $rex_img_type = rex_get('rex_img_type', 'string');
+if(!$REX['SETUP']){
+  rex_register_extension('ADDONS_INCLUDED','image_manager_init');
+}
 
-    if(($rex_img_file == '' && $rex_img_type == '') || $REX['SETUP']){
-      return;
-    }
+if(!function_exists('image_manager_init')){
+  function image_manager_init()
+  {
+    global $REX, $rex_img_file, $rex_img_type;
 
     $imagepath = $REX['HTDOCS_PATH'].'files/'.$rex_img_file;
     $cachepath = $REX['INCLUDE_PATH'].'/generated/files/';
@@ -67,6 +71,8 @@ rex_register_extension('ADDONS_INCLUDED',
     if(isset($subject['imagepath']))    $imagepath    = $subject['imagepath'];
     if(isset($subject['cachepath']))    $cachepath    = $subject['cachepath'];
 
+    if($rex_img_file != '' && $rex_img_type != '')
+    {
     $image         = new rex_image($imagepath);
     $image_cacher  = new rex_image_cacher($cachepath);
     $image_manager = new rex_image_manager($image_cacher);
@@ -74,9 +80,9 @@ rex_register_extension('ADDONS_INCLUDED',
     $image = $image_manager->applyEffects($image, $rex_img_type);
     $image_manager->sendImage($image, $rex_img_type);
     exit();
+    }
   }
-);
-
+}
 
 
 if($REX['REDAXO'])
