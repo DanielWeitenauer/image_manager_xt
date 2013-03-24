@@ -17,7 +17,7 @@ $mypage = 'image_manager';
 
 /* Addon Parameter */
 $REX['ADDON']['rxid'][$mypage] = '679';
-$REX['ADDON']['name'][$mypage] = 'Image Manager Pro';
+$REX['ADDON']['name'][$mypage] = 'Image Manager XT';
 $REX['ADDON']['perm'][$mypage] = 'image_manager[]';
 $REX['ADDON']['version'][$mypage] = '1.2.6';
 $REX['ADDON']['author'][$mypage] = 'Markus Staab, Jan Kristinus, jdlx';
