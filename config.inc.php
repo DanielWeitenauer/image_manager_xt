@@ -34,6 +34,11 @@ $REX['ADDON']['image_manager']['jpg_quality'] = 85;
 $REX['ADDON']['image_manager']['classpaths']['effects'] = array();
 $REX['ADDON']['image_manager']['classpaths']['effects'][] = dirname(__FILE__). '/classes/effects/';
 
+$REX['ADDON']['image_manager']['cachepath'] = $REX['INCLUDE_PATH'].'/generated/image_manager/';
+if(!file_exists($REX['ADDON']['image_manager']['cachepath'])){
+  mkdir($REX['ADDON']['image_manager']['cachepath'], $REX['DIRPERM'], true);
+}
+
 require_once (dirname(__FILE__). '/classes/class.rex_image.inc.php');
 require_once (dirname(__FILE__). '/classes/class.rex_image_cacher.inc.php');
 require_once (dirname(__FILE__). '/classes/class.rex_image_manager.inc.php');
@@ -52,25 +57,32 @@ if(!$REX['SETUP']){
 }
 
 if(!function_exists('image_manager_init')){
-  function image_manager_init($params,$return = false, $img_file = false, $img_type = false)
-  {                                                                             FB::group(__FUNCTION__, array("Collapsed"=>false));        FB::log($return,' $return');
-    global $REX, $rex_img_file, $rex_img_type;
+  function image_manager_init($params, $return = false, $img_file = false, $img_type = false)
+  {
+    global $REX;
+
+    //--- handle image request
+    $rex_img_file = rex_get('rex_img_file', 'string');
+    $rex_img_type = rex_get('rex_img_type', 'string');
+    $rex_img_init = false;
+    if($rex_img_file != '' && $rex_img_type != ''){
+      $rex_img_init = true;
+    }
 
     if($return && $img_file && $img_type ){
       $rex_img_file = $img_file;
       $rex_img_type = $img_type;
+      $rex_img_init = true;
     }
 
     $imagepath = $REX['HTDOCS_PATH'].'files/'.$rex_img_file;
-    $cachepath = $REX['INCLUDE_PATH'].'/generated/image_manager/';
+    $cachepath = $REX['ADDON']['image_manager']['cachepath'];
 
-    if(!file_exists($cachepath)){
-      mkdir($cachepath, $REX['DIRPERM'], true);
-    }
 
     // REGISTER EXTENSION POINT
     $subject = array('rex_img_type' => $rex_img_type,
                      'rex_img_file' => $rex_img_file,
+                     'rex_img_init' => $rex_img_init,
                      'imagepath'    => $imagepath,
                      'cachepath'    => $cachepath);
     $subject   = rex_register_extension_point('IMAGE_MANAGER_INIT',$subject);
@@ -80,21 +92,21 @@ if(!function_exists('image_manager_init')){
     if(isset($subject['imagepath']))    $imagepath    = $subject['imagepath'];
     if(isset($subject['cachepath']))    $cachepath    = $subject['cachepath'];
 
-    if($rex_img_file != '' && $rex_img_type != '')
+    if($subject['rex_img_init'])
     {
-      $image         = new rex_image($imagepath);                               FB::log($image,' $image');
-      $image_cacher  = new rex_image_cacher($cachepath);                        FB::log($image_cacher,' $image_cacher');
-      $image_manager = new rex_image_manager($image_cacher);                    FB::log($image_manager,' $image_manager');
+      $image         = new rex_image($imagepath);
+      $image_cacher  = new rex_image_cacher($cachepath);
+      $image_manager = new rex_image_manager($image_cacher);
 
       if(!$image_cacher->isCached($image, $rex_img_type))
-      {                                                                         FB::group('not cached', array("Collapsed"=>true));
-        $image_manager->applyEffects($image, $rex_img_type);                    FB::log($image_manager,' $image_manager');
-        $image->save($image_cacher->getCacheFile($image, $rex_img_type));       FB::log($image,' $image');FB::groupEnd();
+      {
+        $image_manager->applyEffects($image, $rex_img_type);
+        $image->save($image_cacher->getCacheFile($image, $rex_img_type));
       }
 
-      if($return==true){                                                        FB::INFO('return');FB::groupEnd();
+      if($return==true){
         return $image_cacher->getCachedImage($rex_img_file, $rex_img_type);
-      }                                                                         FB::log($image,' $image');FB::groupEnd();
+      }
 
       $image_manager->sendImage($image, $rex_img_type);
       exit();

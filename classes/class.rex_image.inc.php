@@ -38,7 +38,7 @@ class rex_image {
   }
 
   /*public*/ function prepare()
-  {         FB::log($this,' $this');
+  {
     if(!isset($this->img['src']))
     {
       // ----- gif support ?
@@ -79,7 +79,7 @@ class rex_image {
   }
 
   /*public*/ function refreshDimensions()
-  {FB::log($this->img['src'],'$this->img[src]');
+  {
     $this->img['width'] = imagesx($this->img['src']);
     $this->img['height'] = imagesy($this->img['src']);
   }
