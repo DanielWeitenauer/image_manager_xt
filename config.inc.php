@@ -3,7 +3,7 @@
 * rex_resize Plugin for image_manager Addon
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 0.2.29
+* @version 1.0.0
 * @link    http://svn.rexdev.de/redmine/projects/image-manager-ep
 * @author  http://rexdev.de/
 */
@@ -16,14 +16,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$Revision = '';
-$REX['ADDON'][$myself]['VERSION'] = array
-(
-'VERSION'      => 0,
-'MINORVERSION' => 2,
-'SUBVERSION'   => 29
-);
-$REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
+$REX['ADDON']['version'][$myself]     = '1.0.0';
 $REX['ADDON']['title'][$myself]       = 'Rex Resize';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';
