@@ -28,7 +28,7 @@ $REX['PERM'][]                        = $myself.'[]';
 
 // SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin']['cachefile'] = $REX['INCLUDE_PATH'].'/generated/files/precompress.image_manager.plugin_cache.php';
+$REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin']['cachefile'] = $REX['INCLUDE_PATH'].'/generated/image_manager/precompress.image_manager.plugin_cache.php';
 // --- DYN
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_width"]   = 1000;
 $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["trigger_height"]  = 1000;
