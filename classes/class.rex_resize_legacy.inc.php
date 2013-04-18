@@ -172,7 +172,7 @@ class rex_resize_legacy
     if($rex_img_type!='')
     {
       $imagepath = $REX['HTDOCS_PATH'].'files/'.$this->img_file;
-      $cachepath = $REX['INCLUDE_PATH'].'/generated/files/';
+      $cachepath = $REX['INCLUDE_PATH'].'/generated/image_manager/';
 
       $tmp         = new rex_image($imagepath);
       $tmp_cacher  = new rex_image_cacher($cachepath);
@@ -187,7 +187,7 @@ class rex_resize_legacy
 
     // DELETE OLDEST CACHE FILE IF MAX-CACHEFILES REACHED
     ////////////////////////////////////////////////////////////////////////////
-    $cachepath = $REX['INCLUDE_PATH'].'/generated/files/';
+    $cachepath = $REX['INCLUDE_PATH'].'/generated/image_manager/';
     $pattern = $cachepath.'image_manager__RR_*_'.$this->img_file;
     $glo = glob($pattern);
     if($REX['ADDON']['image_manager']['PLUGIN']['_rex_resize.image_manager.plugin']['max_cachefiles']<=count($glo))
