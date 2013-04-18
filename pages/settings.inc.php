@@ -7,7 +7,7 @@
 * @link https://github.com/jdlx/image_manager_ep
 *
 * @package redaxo 4.3.x/4.4.x
-* @version 1.5.0
+* @version 1.5.1
 */
 
 $myself = 'precompress.image_manager.plugin';
