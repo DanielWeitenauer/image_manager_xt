@@ -109,23 +109,7 @@ class rex_image_manager
    */
   /*public static*/ function getImageCache($rex_img_file, $rex_img_type)
   {
-    global $REX;
-
-    $imagepath = $REX['HTDOCS_PATH'].'files/'.$rex_img_file;
-    $cachepath = $REX['INCLUDE_PATH'].'/generated/image_manager/';
-
-    $image         = new rex_image($imagepath);
-    $image_cacher  = new rex_image_cacher($cachepath);
-
-    // create image with given image_type if needed
-    if(!$image_cacher->isCached($image, $rex_img_type))
-    {
-      $image_manager = new rex_image_manager($image_cacher);
-      $image_manager->applyEffects($image, $rex_img_type);
-      $image->save($image_cacher->getCacheFile($image, $rex_img_type));
-    }
-
-    return $image_cacher->getCachedImage($rex_img_file, $rex_img_type);
+    return image_manager_init(array(),true,$rex_img_file,$rex_img_type);
   }
 
   /*public*/ function sendImage(/*rex_image*/ $image, $type)

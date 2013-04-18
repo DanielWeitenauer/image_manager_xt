@@ -38,7 +38,7 @@ class rex_image {
   }
 
   /*public*/ function prepare()
-  {
+  {         FB::log($this,' $this');
     if(!isset($this->img['src']))
     {
       // ----- gif support ?
@@ -50,20 +50,20 @@ class rex_image {
       {
         // --- JPEG
         $this->img['format'] = 'JPEG';
-        $this->img['src'] = @imagecreatefromjpeg($this->img["filepath"]);
+        $this->img['src'] = imagecreatefromjpeg($this->img["filepath"]);
       }elseif ($this->img['format'] == 'PNG')
       {
         // --- PNG
-        $this->img['src'] = @imagecreatefrompng($this->img["filepath"]);
+        $this->img['src'] = imagecreatefrompng($this->img["filepath"]);
       }elseif ($this->img['format'] == 'GIF')
       {
         // --- GIF
         if ($this->gifsupport)
-          $this->img['src'] = @imagecreatefromgif($this->img["filepath"]);
+          $this->img['src'] = imagecreatefromgif($this->img["filepath"]);
       }elseif ($this->img['format'] == 'WBMP')
       {
         // --- WBMP
-        $this->img['src'] = @imagecreatefromwbmp($this->img["filepath"]);
+        $this->img['src'] = imagecreatefromwbmp($this->img["filepath"]);
       }
 
       // ggf error image senden
@@ -79,7 +79,7 @@ class rex_image {
   }
 
   /*public*/ function refreshDimensions()
-  {
+  {FB::log($this->img['src'],'$this->img[src]');
     $this->img['width'] = imagesx($this->img['src']);
     $this->img['height'] = imagesy($this->img['src']);
   }

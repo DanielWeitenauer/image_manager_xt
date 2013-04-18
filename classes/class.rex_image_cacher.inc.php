@@ -67,10 +67,10 @@ class rex_image_cacher
    * Use rex_image_manager::getImageCache() if the cache should be created if needed.
    */
   /*public*/ function getCachedImage($filename, $cacheParams)
-  {
-    $cacheFile = $this->_getCacheFile($filename, $cacheParams);
-    $rex_image = new rex_image($cacheFile);
-    $rex_image->prepare();
+  {                                                                             FB::group(__FUNCTION__, array("Collapsed"=>true));
+    $cacheFile = $this->_getCacheFile($filename, $cacheParams);                 FB::log($cacheFile,' $cacheFile');
+    $rex_image = new rex_image($cacheFile);                                     FB::log($rex_image,' $rex_image');
+    $rex_image->prepare();                                                      FB::log($rex_image,' $rex_image');FB::groupEnd();
     return $rex_image;
   }
 

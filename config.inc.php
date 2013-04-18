@@ -52,9 +52,14 @@ if(!$REX['SETUP']){
 }
 
 if(!function_exists('image_manager_init')){
-  function image_manager_init()
-  {
+  function image_manager_init($params,$return = false, $img_file = false, $img_type = false)
+  {                                                                             FB::group(__FUNCTION__, array("Collapsed"=>false));        FB::log($return,' $return');
     global $REX, $rex_img_file, $rex_img_type;
+
+    if($return && $img_file && $img_type ){
+      $rex_img_file = $img_file;
+      $rex_img_type = $img_type;
+    }
 
     $imagepath = $REX['HTDOCS_PATH'].'files/'.$rex_img_file;
     $cachepath = $REX['INCLUDE_PATH'].'/generated/image_manager/';
@@ -77,13 +82,22 @@ if(!function_exists('image_manager_init')){
 
     if($rex_img_file != '' && $rex_img_type != '')
     {
-    $image         = new rex_image($imagepath);
-    $image_cacher  = new rex_image_cacher($cachepath);
-    $image_manager = new rex_image_manager($image_cacher);
+      $image         = new rex_image($imagepath);                               FB::log($image,' $image');
+      $image_cacher  = new rex_image_cacher($cachepath);                        FB::log($image_cacher,' $image_cacher');
+      $image_manager = new rex_image_manager($image_cacher);                    FB::log($image_manager,' $image_manager');
 
-    $image = $image_manager->applyEffects($image, $rex_img_type);
-    $image_manager->sendImage($image, $rex_img_type);
-    exit();
+      if(!$image_cacher->isCached($image, $rex_img_type))
+      {                                                                         FB::group('not cached', array("Collapsed"=>true));
+        $image_manager->applyEffects($image, $rex_img_type);                    FB::log($image_manager,' $image_manager');
+        $image->save($image_cacher->getCacheFile($image, $rex_img_type));       FB::log($image,' $image');FB::groupEnd();
+      }
+
+      if($return==true){                                                        FB::INFO('return');FB::groupEnd();
+        return $image_cacher->getCachedImage($rex_img_file, $rex_img_type);
+      }                                                                         FB::log($image,' $image');FB::groupEnd();
+
+      $image_manager->sendImage($image, $rex_img_type);
+      exit();
     }
   }
 }
