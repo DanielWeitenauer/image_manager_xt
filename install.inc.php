@@ -43,7 +43,7 @@ if($error == '')
 
 if($error == '')
 {
-  $file = $REX['INCLUDE_PATH'] .'/generated/files';
+  $file = $REX['INCLUDE_PATH'] .'/generated/image_manager/';
 
   if(($state = rex_is_writable($file)) !== true)
     $error = $state;
