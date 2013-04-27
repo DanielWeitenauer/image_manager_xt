@@ -45,6 +45,10 @@ if($error == '')
 {
   $file = $REX['INCLUDE_PATH'] .'/generated/image_manager/';
 
+  if(!file_exists($file)){
+    mkdir($file, $REX['DIRPERM'], true);
+  }
+
   if(($state = rex_is_writable($file)) !== true)
     $error = $state;
 }
