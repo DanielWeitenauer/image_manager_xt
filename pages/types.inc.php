@@ -136,6 +136,7 @@ if ($func == '')
   $list->setColumnLabel('name',$I18N->msg('imanager_type_name'));
   $list->setColumnParams('name', array('subpage' => 'effects', 'type_id' => '###id###'));
   $list->setColumnLabel('description',$I18N->msg('imanager_type_description'));
+  $list->setColumnSortable('name', $direction = 'asc');
 
   // icon column
   $thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">'. $I18N->msg('imanager_type_create') .'</span></a>';
