@@ -121,6 +121,13 @@ if ($warning != '')
 echo '<div class="rex-addon-output-v2">';
 if ($func == '')
 {
+  $db = rex_sql::factory();
+  $effects_arr = array();
+  foreach($db->getArray('SELECT * FROM '.$REX['TABLE_PREFIX'].'679_type_effects;') as $k => $v) {
+    $effects_arr[$v['type_id']][] = '<a href="index.php?page=image_manager&subpage=effects&func=edit&type_id='.$v['type_id'].'&effect_id='.$v['id'].'">'.$v['effect'].'</a>';
+  }
+
+
   // Nach Status sortieren, damit Systemtypen immer zuletzt stehen
   // (werden am seltesten bearbeitet)
   $query = 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types ORDER BY status';
@@ -129,10 +136,11 @@ if ($func == '')
   $list->setNoRowsMessage($I18N->msg('imanager_type_no_types'));
   $list->setCaption($I18N->msg('imanager_type_caption'));
   $list->addTableAttribute('summary', $I18N->msg('imanager_type_summary'));
-  $list->addTableColumnGroup(array(40, 100, '*', 120, 120));
+  $list->addTableColumnGroup(array(40, 100, '*', 70, 70));
 
   $list->removeColumn('id');
   $list->removeColumn('status');
+  #$list->removeColumn('description');
   $list->setColumnLabel('name',$I18N->msg('imanager_type_name'));
   $list->setColumnParams('name', array('subpage' => 'effects', 'type_id' => '###id###'));
   $list->setColumnLabel('description',$I18N->msg('imanager_type_description'));
@@ -144,27 +152,42 @@ if ($func == '')
   $list->addColumn($thIcon, $tdIcon, 0, array('<th class="rex-icon">###VALUE###</th>','<td class="rex-icon">###VALUE###</td>'));
   $list->setColumnParams($thIcon, array('func' => 'edit', 'type_id' => '###id###'));
 
+
+  $list->addColumn('effects', 'effects', 4, array('<th>'.$I18N->msg('imanager_effects').'</th>','<td>###VALUE###</td>'));
+  $list->setColumnLabel('effects',$I18N->msg('imanager_effects'));
+  $list->setColumnSortable('effects', $direction = 'asc');
+  $list->setColumnParams('effects', array('type_id' => '###id###', 'func' => 'effects'));
+  $list->setColumnFormat('effects', 'custom',
+    function($params) use($effects_arr)
+    {
+      $list = $params["list"];
+      return implode(' | ', $effects_arr[$list->getValue("id")] );
+    }
+  );
+
   // functions column spans 2 data-columns
   $funcs = $I18N->msg('imanager_type_functions');
-  $list->addColumn($funcs, $I18N->msg('imanager_type_cache_delete'), -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
+  $list->addColumn($funcs, $I18N->msg('imanager_clear'), -1, array('<th>###VALUE###</th>','<td>###VALUE###</td>'));
+  $list->setColumnLabel($funcs,$I18N->msg('imanager_cache'));
   $list->setColumnParams($funcs, array('type_id' => '###id###', 'func' => 'delete_cache'));
   $list->addLinkAttribute($funcs, 'onclick', 'return confirm(\''.$I18N->msg('imanager_type_cache_delete').' ?\')');
 
   // remove delete link on internal types (status == 1)
-  $delete = 'deleteType';
-  $list->addColumn($delete, '', -1, array('','<td>###VALUE###</td>'));
-  $list->setColumnParams($delete, array('type_id' => '###id###', 'func' => 'delete'));
-  $list->addLinkAttribute($delete, 'onclick', 'return confirm(\''.$I18N->msg('delete').' ?\')');
-  $list->setColumnFormat($delete, 'custom',
+  $deleteType = 'deleteType';
+  $list->addColumn($deleteType, '', -1, array('<th>###VALUE###</th>','<td>###VALUE###</td>'));
+  $list->setColumnLabel($deleteType,$I18N->msg('imanager_image_type'));
+  $list->setColumnParams($deleteType, array('type_id' => '###id###', 'func' => 'delete'));
+  $list->addLinkAttribute($deleteType, 'onclick', 'return confirm(\''.$I18N->msg('delete').' ?\')');
+  $list->setColumnFormat($deleteType, 'custom',
     create_function(
       '$params',
       'global $REX;
        $list = $params["list"];
        if($list->getValue("status") == 1)
        {
-         return \''. $I18N->msg('imanager_type_system') .'\';
+         return \''. '<strike title="'.$I18N->msg('imanager_type_system').'">'.$I18N->msg('imanager_delete').'</strike>' .'\';
        }
-       return $list->getColumnLink("'. $delete .'","'. $I18N->msg('imanager_type_delete') .'");'
+       return $list->getColumnLink("'. $deleteType .'","'. $I18N->msg('imanager_delete') .'");'
     )
   );
 

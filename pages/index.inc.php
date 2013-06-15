@@ -37,14 +37,14 @@ if ($REX['REDAXO'])
 
 require $REX['INCLUDE_PATH'] . '/layout/top.php';
 
-$page = rex_request('page', 'string');
+$page    = rex_request('page', 'string');
 $subpage = rex_request('subpage', 'string');
-$func = rex_request('func', 'string');
-$msg = '';
+$func    = rex_request('func', 'string');
+$msg     = '';
 
 if ($subpage == 'clear_cache')
 {
-  $c = rex_image_cacher::deleteCache();
+  $c   = rex_image_cacher::deleteCache();
   $msg = $I18N->msg('imanager_cache_files_removed', $c);
 }
 
@@ -62,9 +62,9 @@ switch($subpage)
 
   default:
   {
-    if ($msg != '')
+    if ($msg != '') {
       echo rex_info($msg);
-
+    }
     $subpage = 'types';
   }
 }
