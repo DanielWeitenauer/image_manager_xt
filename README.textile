@@ -13,8 +13,9 @@ Diese Version des image_manager Addons basiert auf dem standard ImageManager und
 ** class.rex_effect_jpg_quality.inc.php
 ** class.rex_effect_roundcorners.inc.php
 * UI Verbesserungen:
+** Bildtyp-Übersicht zeigt die verwendeten Effekte/Filter des jeweiligen Bildtypes an incl. direktem link zum editieren selbiger
 ** Klick auf den Namen eines Bildtyps öffnet dessen Effekt-Einstellungen (und nicht mehr die Beschreibung des Bildtypes - diese ist über die linksseitige Iconzeile erreichbar)
-** Bildtypen können einfach dupliziert werden.
+** Bildtypen können einfach dupliziert werden
 ** In der Effektansicht kann man direkt zwischen Bildtypen springen
 ** In der Effektansicht werden die Einstellungen des jeweiligen Effekts direkt angezeigt
 
