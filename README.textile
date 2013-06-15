@@ -1,4 +1,4 @@
-h2. Image Manager Pro
+h2. Image Manager XT
 
 Diese Version des image_manager Addons basiert auf dem standard ImageManager und ist um folgende features erweitert:
 
