@@ -98,7 +98,7 @@ if (!function_exists('imm_textileparser'))
         $textile = htmlspecialchars_decode($textile);
         $textile = str_replace("<br />","",$textile);
         $textile = str_replace("&#039;","'",$textile);
-        if (strpos($REX['LANG'],'utf'))
+        if (rex_lang_is_utf8())
         {
           $html = rex_a79_textile($textile);
         }
