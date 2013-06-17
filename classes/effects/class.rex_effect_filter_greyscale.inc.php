@@ -9,8 +9,8 @@
  * @author jdlx / rexdev.de
  * @link https://github.com/jdlx/image_manager_ep
  *
- * @package redaxo 4.3.x/4.4.x
- * @version 1.3.1
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.0
  */
 
 

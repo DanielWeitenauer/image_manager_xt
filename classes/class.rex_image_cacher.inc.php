@@ -9,13 +9,14 @@
  * @author jdlx / rexdev.de
  * @link https://github.com/jdlx/image_manager_ep
  *
- * @package redaxo 4.3.x/4.4.x
- * @version 1.3.1
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.0
  */
 
 class rex_image_cacher
 {
   var $cache_path;
+
 
   function rex_image_cacher($cache_path)
   {
@@ -60,6 +61,7 @@ class rex_image_cacher
     return false;
   }
 
+
   /**
    * Returns a rex_image instance representing the cached image.
    * This Method requires a already cached file.
@@ -73,6 +75,7 @@ class rex_image_cacher
     $rex_image->prepare();
     return $rex_image;
   }
+
 
   /*public*/ function getCacheFile(/*rex_image*/ $image, $cacheParams)
   {
@@ -89,6 +92,7 @@ class rex_image_cacher
     $cachefile = rex_register_extension_point('IMAGE_MANAGER_CACHEFILE', $cachefile, array('cacheParams' => $cacheParams));
     return $cachefile;
   }
+
 
   /*public*/ function sendImage(/*rex_image*/ $image, $cacheParams, $lastModified = null)
   {
@@ -133,6 +137,7 @@ class rex_image_cacher
     $REX['USE_GZIP'] = $tmp;
   }
 
+
   /*
    * Static Method: Returns True, if the given cacher is a valid rex_image_cacher
    */
@@ -140,6 +145,7 @@ class rex_image_cacher
   {
     return is_object($cacher) && is_a($cacher, 'rex_image_cacher');
   }
+
 
   /**
    * deletes all cache files for the given filename.
