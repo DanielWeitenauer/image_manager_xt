@@ -129,7 +129,7 @@ class rex_image_cacher
         'format'       => $format,
         'scope'        => $scope,
         )
-      );           FB::log($IMG,' $IMG');
+      );
 
     $IMG['image']->sendHeader();
     rex_send_file($IMG['cachefile'], $IMG['format'], $IMG['scope']);
