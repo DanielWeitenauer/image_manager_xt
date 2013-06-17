@@ -85,7 +85,9 @@ class rex_image_cacher
     {
       $cacheParams = md5(serialize($cacheParams));
     }
-    return $this->cache_path .'image_manager__'. $cacheParams .'_'. $filename;
+    $cachefile = $this->cache_path .'image_manager__'. $cacheParams .'_'. $filename;
+    $cachefile = rex_register_extension_point('IMAGE_MANAGER_CACHEFILE', $cachefile, array('cacheParams' => $cacheParams));
+    return $cachefile;
   }
 
   /*public*/ function sendImage(/*rex_image*/ $image, $cacheParams, $lastModified = null)
@@ -97,14 +99,6 @@ class rex_image_cacher
       trigger_error('Given image is not a valid rex_image', E_USER_ERROR);
     }
 
-    // caching gifs doesn't work
-    //	  if($image->getFormat() == 'GIF' && !$image->hasGifSupport())
-    //	  {
-    //	    $image->prepare();
-    //	    $image->send($lastModified);
-    //	  }
-    //	  else
-    //	  {
     $cacheFile = $this->getCacheFile($image, $cacheParams);
 
     // save image to file
@@ -117,13 +111,26 @@ class rex_image_cacher
     $tmp = $REX['USE_GZIP'];
     $REX['USE_GZIP'] = 'false';
 
-    // send file
-    $image->sendHeader();
     $format = $image->getFormat() == 'JPG' ? 'jpeg' : strtolower($image->getFormat());
-    rex_send_file($cacheFile,'image/'.$format,'frontend');
+    $format = 'image/'.$format;
+    $scope  = 'frontend';
+
+    $IMG = rex_register_extension_point(
+      'IMAGE_MANAGER_SEND_IMAGE',
+      array(
+        'image'        => $image,
+        'cacheparams'  => $cacheParams,
+        'lastmodified' => $lastModified,
+        'cachefile'    => $cacheFile,
+        'format'       => $format,
+        'scope'        => $scope,
+        )
+      );           FB::log($IMG,' $IMG');
+
+    $IMG['image']->sendHeader();
+    rex_send_file($IMG['cachefile'], $IMG['format'], $IMG['scope']);
 
     $REX['USE_GZIP'] = $tmp;
-    //	  }
   }
 
   /*
@@ -156,14 +163,19 @@ class rex_image_cacher
       $cacheParams = '*';
     }
 
-    $folders = array();
-    $folders[] = $REX['INCLUDE_PATH'] . '/generated/image_manager/';
-    $folders[] = $REX['HTDOCS_PATH'] . 'files/';
+    $file = 'image_manager__'. $cacheParams . '_'. $filename;
+
+    $needles = array();
+    $needles[] = $REX['INCLUDE_PATH'] . '/generated/image_manager/'.$file;
+    $needles[] = $REX['HTDOCS_PATH'] . 'files/'.$file;
+
+
+    $needles = rex_register_extension_point('IMAGE_MANAGER_CLEAR_CACHE', $needles, array('filename' => $filename, 'cacheparams' => $cacheParams));
 
     $counter = 0;
-    foreach($folders as $folder)
+    foreach($needles as $needle)
     {
-      $glob = glob($folder .'image_manager__'. $cacheParams . '_'. $filename);
+      $glob = glob($needle);
       if($glob)
       {
         foreach ($glob as $file)
