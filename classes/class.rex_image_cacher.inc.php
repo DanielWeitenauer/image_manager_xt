@@ -155,25 +155,27 @@ class rex_image_cacher
    *
    * @param $filename
    */
-  function deleteCache($filename = null, $cacheParams = null)
+  function deleteCache($filename = null, $cacheParams = null, $needles = null)
   {
     global $REX;
 
-    if(!$filename)
-    {
+    if(!$filename) {
       $filename = '*';
     }
 
-    if(!$cacheParams)
-    {
+    if(!$cacheParams) {
       $cacheParams = '*';
     }
 
-    $file = 'image_manager__'. $cacheParams . '_'. $filename;
+    if(!$needles) {
+      $file = 'image_manager__'. $cacheParams . '_'. $filename;
 
-    $needles = array();
-    $needles[] = $REX['INCLUDE_PATH'] . '/generated/image_manager/'.$file;
-    $needles[] = $REX['HTDOCS_PATH'] . 'files/'.$file;
+      $needles = array();
+      $needles[] = $REX['INCLUDE_PATH'] . '/generated/image_manager/'.$file;
+      $needles[] = $REX['HTDOCS_PATH'] . 'files/'.$file;
+    } else {
+      $needles = (array) $needles;
+    }
 
 
     $needles = rex_register_extension_point('IMAGE_MANAGER_CLEAR_CACHE', $needles, array('filename' => $filename, 'cacheparams' => $cacheParams));
