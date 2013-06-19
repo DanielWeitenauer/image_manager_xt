@@ -1,0 +1,51 @@
+h1. Allgemein
+
+Dieses Plugin ermöglich über die Funktion @convert@ des ImageMagick Pakets die Verarbeitung von Bildern, die für den image_manager (bzw. die GD lib) bei gegebenen Hosting (RAM, Scriptlaufzeit) zu groß wären. Über einen Schwellenwert (trigger) für Höhe & Breite wird definiert ab welcher Bildgröße das Plugin unterstützende Vorarbeit leisten soll.
+
+Liegen die Maße eines Bildes _über_ dem Schwellenwert, wird per @convert@ eine verkleinerte Version in *./generated/files/* gecacht, und diese für den weiteren Workflow des image_managers als Basis verwendet.
+
+*Das Originalbild wird dabei nicht verändert, d.h. bleibt in seiner Größe und Speicherort (./files) unverändert.*
+
+h1. Requirements
+
+ImageMagick's @convert@ sowie die Rechte selbiges über @exec()@ auszuführen. Dies ist ein feature besserer Hoster/Hostingpakete, und bei landläufigen Massen/Billigprovidern üblicherweise nicht vorhanden und auch nicht freischalt- oder zu-buchbar. Folgende Hoster bieten in ihren Paketen "ImageMagik/Convert" an, und können vom Autor aus eigener/guter Erfahrung empfohlen werden:
+
+h2. "(jsopenwin)Domainfactory _{font-weight:normal}(affiliate link)_":http://df.eu/kwk/117269, "(jsopenwin)GN2-Hosting":http://www.gn2-hosting.de?ref=precompress_im_plugin
+
+h1. Fallback Service
+
+Falls @exec()@ und/oder @convert@ nicht zur Verfügung stehen, kann für den resize ein externer Service aufgerufen werden.
+Es werden folgende Daten an die API per POST verschickt:
+
+*$_POST:*
+
+bc. array (
+  'name'  => 'resize',
+  'token' => // TOKEN,
+)
+
+*$_FILES:*
+
+bc. array (
+  'file' =>
+  array (
+    'name'     => // DATEINAME,
+    'type'     => 'application/octet-stream',
+    'tmp_name' => // PFAD DES TMP FILES,
+    'error'    => 0,
+    'size'     => // DATEIGRÖSSE,
+  ),
+)
+
+h1. Settings
+
+* *Trigger Width*   Bildbreite ab der das Plugin eingreift
+* *Trigger Height*  Bildhöhe ab der das Plugin eingreift
+* *Convert Path* Pfad zum @convert@ binary auf dem Server
+* *Service URL* URL über die ein externer Resize Service aufrufbar ist.
+* *Service Token* Auth Token der an die API des externen Services geschickt wird.
+
+
+h1. Beispiel
+
+Siehe "(blank)http://rexdev.de/addons/image_manager-ep/precompress-plugin.html":http://rexdev.de/addons/image_manager-ep/precompress-plugin.html
