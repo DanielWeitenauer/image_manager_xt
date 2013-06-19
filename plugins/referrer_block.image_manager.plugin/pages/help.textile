@@ -1,0 +1,23 @@
+h1. Allgemein
+
+Dieses Plugin ermöglicht es auf direkte Verlinkung eines Bildes durch Dritte _(aka image deep-linking)_ zu reagieren. Dafür wird der @$_SERVER['HTTP_REFERER']@ der Anfrage ausgewertet: ist die Domain des Referrers nicht mit der eigenen identisch, wird entsprechnd den Einstellungen reagiert.
+
+_{color:gray;}*Hinweis:* Direkte file-links auf eine Bilddatei im ./files Ordner - also ohne Bearbeitung durch den ImageManager - können auf diese Weise nicht abgefangen werden, hierfür muß man sich passende Regeln für die .htaccess zusammenstellen._
+
+h1. Settings
+
+Die beiden Einstellungen können einzeln oder auch gemischt verwendet werden.
+Wird eine leer gelassen, wird der Originalwert verwendet.
+
+* *Ersatz-Bilddatei:* Bilddatei die anstelle des Originals angezeigt werden soll.
+* *Ersatz-Bildtyp:*  Bildtyp der anstelle des Originals verwendet werden soll.
+* *Hosts Whitelist:*  Hosts die deep-links setzen dürfen ohne daß das Plugin aktiv wird.
+Hosts sind wie folgt kommasepariert einzugeben: @DOMAIN.TLD,DOMAIN.TLD,SUBDOMAIN.DOMAIN.TLD, ...@
+
+h1. Beispiel
+
+Folgendes Bild ist über einen direkten (deep) link auf dieser Backend-Seite verlinkt. Durch den abweichenden referrer wird auf dem angefragten Server (rexdev.de) das Plugin getriggert: Es wird einen Bildtyp anwendet, der neben einem resize auch die Bilddatei mit dem copyright Text in das Originalbild einkopiert:
+
+ <img src="http://rexdev.de/index.php?rex_img_type=rex_mediapool_maximized&rex_img_file=jochberg_pano_14543x2125.jpg" />
+
+
