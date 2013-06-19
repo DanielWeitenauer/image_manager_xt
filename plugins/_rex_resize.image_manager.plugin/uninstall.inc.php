@@ -1,12 +1,13 @@
 <?php
 /**
-* rex_resize Plugin for image_manager Addon
-*
-* @package redaxo 4.3.x/4.4.x
-* @version 1.0.0
-* @link    http://svn.rexdev.de/redmine/projects/image-manager-ep
-* @author  http://rexdev.de/
-*/
+ * rex_resize Plugin for image_manager Addon
+ *
+ * @author jdlx c/o http://rexdev.de/
+ * @link https://github.com/jdlx/image_manager_xt
+ *
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.1
+ */
 
 $error = '';
 

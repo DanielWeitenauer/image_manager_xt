@@ -1,10 +1,13 @@
 <?php
 /**
-* Referrer Blocker Plugin for image_manager Addon
-*
-* @package redaxo 4.3.x/4.4.x
-* @version 1.1.4
-*/
+ * Referrer Blocker Plugin for image_manager Addon
+ *
+ * @author jdlx c/o http://rexdev.de/
+ * @link https://github.com/jdlx/image_manager_xt
+ *
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.1
+ */
 
 
 // ADDON IDENTIFIER & ROOT DIR
@@ -15,7 +18,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$myself]     = '1.1.4';
+$REX['ADDON']['version'][$myself]     = '1.4.1';
 $REX['ADDON']['title'][$myself]       = 'Referrer Block';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';

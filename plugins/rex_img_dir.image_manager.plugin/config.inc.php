@@ -1,10 +1,13 @@
 <?php
 /**
-* Custom Folder Plugin for image_manager Addon
-*
-* @package redaxo 4.3.x/4.4.x
-* @version 0.2.15
-*/
+ * Custom Folder Plugin for image_manager Addon
+ *
+ * @author jdlx c/o http://rexdev.de/
+ * @link https://github.com/jdlx/image_manager_xt
+ *
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.1
+ */
 
 
 // ADDON IDENTIFIER & ROOT DIR
@@ -15,14 +18,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$Revision = '';
-$REX['ADDON'][$myself]['VERSION'] = array
-(
-'VERSION'      => 0,
-'MINORVERSION' => 2,
-'SUBVERSION'   => 15
-);
-$REX['ADDON']['version'][$myself]     = implode('.', $REX['ADDON'][$myself]['VERSION']);
+$REX['ADDON']['version'][$myself]     = '1.4.1';
 $REX['ADDON']['title'][$myself]       = 'Image Directory';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';

@@ -1,14 +1,13 @@
 <?php
 /**
-* ImageMagick Precompress Plugin for "Image Manager EP" Addon
-*
-* @author http://rexdev.de
-* @link https://github.com/jdlx/precompress.image_manager.plugin
-* @link https://github.com/jdlx/image_manager_ep
-*
-* @package redaxo 4.3.x/4.4.x
-* @version 1.5.1
-*/
+ * ImageMagick Precompress Plugin for "Image Manager EP" Addon
+ *
+ * @author jdlx c/o http://rexdev.de/
+ * @link https://github.com/jdlx/image_manager_xt
+ *
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.1
+ */
 
 
 // ADDON IDENTIFIER & ROOT DIR
@@ -19,7 +18,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/image_manager/plugins/'.$myself;
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$myself]     = '1.5.1';
+$REX['ADDON']['version'][$myself]     = '1.4.1';
 $REX['ADDON']['title'][$myself]       = 'Precompressor';
 $REX['ADDON']['author'][$myself]      = 'rexdev.de';
 $REX['ADDON']['supportpage'][$myself] = 'forum.redaxo.de';

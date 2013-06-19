@@ -6,11 +6,11 @@
  * @author markus.staab[at]redaxo[dot]de Markus Staab
  * @author jan.kristinus[at]redaxo[dot]de Jan Kristinus
  *
- * @author jdlx / rexdev.de
- * @link https://github.com/jdlx/image_manager_ep
+ * @author jdlx c/o http://rexdev.de/
+ * @link https://github.com/jdlx/image_manager_xt
  *
  * @package redaxo 4.4.x/4.5.x
- * @version 1.4.0
+ * @version 1.4.1
  */
 
 $mypage = 'image_manager';
@@ -19,7 +19,7 @@ $mypage = 'image_manager';
 $REX['ADDON']['rxid'][$mypage]        = '679';
 $REX['ADDON']['name'][$mypage]        = 'Image Manager XT';
 $REX['ADDON']['perm'][$mypage]        = 'image_manager[]';
-$REX['ADDON']['version'][$mypage]     = '1.4.0';
+$REX['ADDON']['version'][$mypage]     = '1.4.1';
 $REX['ADDON']['author'][$mypage]      = 'Markus Staab, Jan Kristinus, jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 $REX['PERM'][]                        = 'image_manager[]';

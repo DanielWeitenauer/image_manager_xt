@@ -1,10 +1,13 @@
 <?php
 /**
-* Referrer Blocker Plugin for image_manager Addon
-*
-* @package redaxo 4.3.x/4.4.x
-* @version 1.1.4
-*/
+ * Referrer Blocker Plugin for image_manager Addon
+ *
+ * @author jdlx c/o http://rexdev.de/
+ * @link https://github.com/jdlx/image_manager_xt
+ *
+ * @package redaxo 4.4.x/4.5.x
+ * @version 1.4.1
+ */
 
 $error = '';
 
