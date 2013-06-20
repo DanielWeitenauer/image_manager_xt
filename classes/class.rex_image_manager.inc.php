@@ -132,4 +132,30 @@ class rex_image_manager
   {
     $this->image_cacher->sendImage($image, $type);
   }
-}
+
+
+  static function mkdir($dir)
+  {
+    global $REX;
+
+    if(!is_dir($dir)) {
+      if(!mkdir($dir, $REX['DIRPERM'], true)) {
+        trigger_error(__CLASS__.'::'.__FUNCTION__.': could not create dir '.$dir.' with mode '.$REX['DIRPERM'], E_USER_WARNING);
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  static function symlink($target, $symlink)
+  {
+    if(!symlink($target, $symlink)) {
+      trigger_error(__CLASS__.'::'.__FUNCTION__.': could not symlink '.$symlink.' to '.$target , E_USER_WARNING);
+      return false;
+    }
+    return true;
+  }
+
+
+} # end class
