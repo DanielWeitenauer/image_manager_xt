@@ -188,9 +188,13 @@ class rex_image_cacher
       {
         foreach ($glob as $file)
         {
-          if(unlink($file))
-          {
+          if(is_dir($file)) {
+            continue;
+          }
+          if(unlink($file)) {
             $counter++;
+          } else {
+            trigger_error(__CLASS__.'::'.__FUNCTION__.': could not unlink '.$file , E_USER_WARNING);
           }
         }
       }
@@ -198,4 +202,5 @@ class rex_image_cacher
 
     return $counter;
   }
+
 }
