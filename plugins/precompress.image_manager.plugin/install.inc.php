@@ -9,9 +9,26 @@
  * @version 1.4.1
  */
 
-$error = '';
+$myself = 'precompress.image_manager.plugin';
 
-if ($error != '')
-  $REX['ADDON']['installmsg']['precompress.image_manager.plugin'] = $error;
-else
-  $REX['ADDON']['install']['precompress.image_manager.plugin'] = true;
+// CHECK IF EXEC() AVAILABLE
+////////////////////////////////////////////////////////////////////////////////
+if(!function_exists('exec')) {
+  $REX['ADDON']['installmsg'][$myself] = '<br />PHP function <code>exec()</code> is disabled.';
+  $REX['ADDON']['install'][$myself] = 0;
+  return;
+}
+
+
+// SEARCH FOR CONVERT
+////////////////////////////////////////////////////////////////////////////////
+$cmd = 'which convert';
+exec($cmd, $out ,$ret);
+if($ret == 1) {
+  $REX['ADDON']['installmsg'][$myself] = '<br />Could not determine path to <code>convert</code> using cmd "<code>which convert</code>" ..<br />most likely <code>Imagemagick</code> is not available on your server.';
+  $REX['ADDON']['install'][$myself] = 0;
+  return;
+}
+
+
+$REX['ADDON']['install'][$myself] = 1;

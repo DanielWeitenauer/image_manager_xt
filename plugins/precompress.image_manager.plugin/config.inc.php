@@ -41,20 +41,33 @@ $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["se
 ////////////////////////////////////////////////////////////////////////////////
 if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"]=='')
 {
-  $cmd = 'which convert';
-  exec($cmd, $out ,$ret);
-  switch($ret)
+  if(function_exists('exec'))
   {
-    case 0:
-      $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = $out[0];
-    break;
-    case 1:
-      $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = 'Could not determine path to <code>convert</code> using <code>which convert</code> ..<br />Check if your server does have <code>Imagemagick</code> available and provide path to convert manually.';
-      if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"]==''){
-        return; // NOTHING TO DO .. EXIT
+    $out = array();
+    $cmd = 'which convert';
+    exec($cmd, $out ,$ret);
+    if(isset($ret))
+    {
+      switch($ret)
+      {
+        case null:
+        break;
+        case 0:
+          $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = $out[0];
+        break;
+        case 1:
+          $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = 'Could not determine path to <code>convert</code> using <code>which convert</code> ..<br />Check if your server does have <code>Imagemagick</code> available and provide path to convert manually.';
+          if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"]==''){
+            return; // NOTHING TO DO .. EXIT
+          }
+        break;
+        default:
       }
-    break;
-    default:
+    }
+  } else {
+    if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"]=='') {
+      return; // NOTHING TO DO .. EXIT
+    }
   }
 }
 
