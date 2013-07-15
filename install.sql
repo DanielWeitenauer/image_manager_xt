@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `%TABLE_PREFIX%679_types`;
 CREATE TABLE IF NOT EXISTS `%TABLE_PREFIX%679_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -16,7 +15,6 @@ INSERT INTO `%TABLE_PREFIX%679_types` VALUES
   (5, 1, 'rex_medialistbutton_preview', 'Zur Darstellung der Vorschaubilder in REX_MEDIALIST_BUTTON[]s')
 ON DUPLICATE KEY UPDATE `status` = VALUES(`status`), `name` = VALUES(`name`), `description` = VALUES(`description`);
 
-DROP TABLE IF EXISTS `%TABLE_PREFIX%679_type_effects`;
 CREATE TABLE IF NOT EXISTS `%TABLE_PREFIX%679_type_effects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_id` int(11) NOT NULL,
