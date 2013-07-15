@@ -15,6 +15,7 @@
 
 $myself = 'image_manager';
 
+
 // CHECK ADDON FOLDER NAME
 ////////////////////////////////////////////////////////////////////////////////
 $addon_folder = basename(dirname(__FILE__));
@@ -26,34 +27,54 @@ if($addon_folder != $myself)
   return;
 }
 
-$error = '';
 
+// CHECK PHP VERSION
+////////////////////////////////////////////////////////////////////////////////
+if(version_compare(PHP_VERSION, '5.3.0', '<'))
+{
+  $REX['ADDON']['installmsg'][$myself] = 'Dieses Addon ben&ouml;tigt PHP 5.3.0 oder neuer.';
+  $REX['ADDON']['install'][$myself]    = 0;
+  return;
+}
+
+
+// CHECK GD AVAIL
+////////////////////////////////////////////////////////////////////////////////
 if (!extension_loaded('gd'))
 {
-  $error = 'GD-LIB-extension not available! See <a href="http://www.php.net/gd">http://www.php.net/gd</a>';
+  $REX['ADDON']['installmsg'][$myself] = 'GD-LIB-extension not available! See <a href="http://www.php.net/gd">http://www.php.net/gd</a>';
+  $REX['ADDON']['install'][$myself]    = 0;
+  return;
 }
 
-if($error == '')
-{
-  $file = $REX['INCLUDE_PATH'] .'/addons/image_manager/config.inc.php';
 
-  if(($state = rex_is_writable($file)) !== true)
-    $error = $state;
+// CHECK CONFIG WRITEABLE
+////////////////////////////////////////////////////////////////////////////////
+$file = $REX['INCLUDE_PATH'] .'/addons/image_manager/config.inc.php';
+if(($state = rex_is_writable($file)) !== true) {
+  $REX['ADDON']['installmsg'][$myself] = $state;
+  $REX['ADDON']['install'][$myself]    = 0;
+  return;
 }
 
-if($error == '')
-{
-  $file = $REX['INCLUDE_PATH'] .'/generated/image_manager/';
 
-  if(!file_exists($file)){
-    mkdir($file, $REX['DIRPERM'], true);
-  }
-
-  if(($state = rex_is_writable($file)) !== true)
-    $error = $state;
+// SETUP/CHECK CACHE DIR
+////////////////////////////////////////////////////////////////////////////////
+$dir = $REX['INCLUDE_PATH'] .'/generated/image_manager/';
+if(file_exists($dir) && !is_dir($dir)) {
+  $REX['ADDON']['installmsg'][$myself] = '"'.$dir.'"" is not a directory!';
+  $REX['ADDON']['install'][$myself]    = 0;
+  return;
 }
 
-if ($error != '')
-  $REX['ADDON']['installmsg']['image_manager'] = $error;
-else
-  $REX['ADDON']['install']['image_manager'] = true;
+if(!file_exists($dir)){
+  mkdir($dir, $REX['DIRPERM'], true);
+}
+if(($state = rex_is_writable($dir)) !== true) {
+  $REX['ADDON']['installmsg'][$myself] = $state;
+  $REX['ADDON']['install'][$myself]    = 0;
+  return;
+}
+
+
+$REX['ADDON']['install']['image_manager'] = 1;
