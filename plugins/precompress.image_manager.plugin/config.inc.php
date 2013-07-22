@@ -41,20 +41,22 @@ $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["se
 ////////////////////////////////////////////////////////////////////////////////
 if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"]=='')
 {
+  $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = '"Convert Path" is empty in config setttings. checking now..';
   if(function_exists('exec'))
   {
     $out = array();
     $cmd = 'which convert';
     exec($cmd, $out ,$ret);
-    if(isset($ret))
+    if(isset($ret) && $ret !== null)
     {
       switch($ret)
       {
-        case null:
-        break;
         case 0:
-          $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = $out[0];
+          $path_to_convert = $out[0];
+          $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["path_to_convert"] = $path_to_convert;
+          $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_info'][] = '<code>convert</code> found: <code>'.$path_to_convert.'</code> – plz save your settings now!';
         break;
+
         case 1:
           $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = 'Could not determine path to <code>convert</code> using <code>which convert</code> ..<br />Check if your server does have <code>Imagemagick</code> available and provide path to convert manually.';
           if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"]==''){
@@ -63,6 +65,7 @@ if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"][
         break;
         default:
       }
+
     }
   } else {
     if($REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]["service_url"]=='') {
@@ -94,7 +97,7 @@ function precompress_init($params)
   if($params['subject']['rex_img_file']!='')
   {
     global $REX;
-    $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];
+    $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];         FB::log($myREX,' $myREX');
     require_once($myREX['cachefile']);
 
     $trigger_width   = $myREX['trigger_width'];
@@ -153,6 +156,12 @@ function precompress_init($params)
           {
             trigger_error('PRECOMPRESS.IMAGEMANAGER.PLUGIN: rex_socket exception: '.$e->getMessage(), E_USER_WARNING);
           }
+        }
+        else
+        {
+          $warning = 'PRECOMPRESS.IMAGEMANAGER.PLUGIN: path to "convert" not set in plugin settings!';
+          $REX["ADDON"]["image_manager"]["PLUGIN"]["precompress.image_manager.plugin"]['rex_warning'][] = $warning;
+          trigger_error($warning, E_USER_WARNING);
         }
       }
 
