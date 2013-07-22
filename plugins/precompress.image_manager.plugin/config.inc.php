@@ -97,7 +97,7 @@ function precompress_init($params)
   if($params['subject']['rex_img_file']!='')
   {
     global $REX;
-    $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];         FB::log($myREX,' $myREX');
+    $myREX           = $REX['ADDON']['image_manager']['PLUGIN']['precompress.image_manager.plugin'];
     require_once($myREX['cachefile']);
 
     $trigger_width   = $myREX['trigger_width'];
