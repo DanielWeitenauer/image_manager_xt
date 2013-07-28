@@ -10,7 +10,7 @@
  * @link https://github.com/jdlx/image_manager_xt
  *
  * @package redaxo 4.4.x/4.5.x
- * @version 1.4.1
+ * @version 1.4.2
  */
 
 require_once (dirname(__FILE__). '/../functions/function_rex_effects.inc.php');
