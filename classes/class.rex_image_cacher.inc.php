@@ -155,26 +155,17 @@ class rex_image_cacher
    *
    * @param $filename
    */
-  function deleteCache($filename = null, $cacheParams = null, $needles = null)
+  function deleteCache($filename = null, $cacheParams = null, $needles = false)
   {
     global $REX;
 
-    if(!$filename) {
-      $filename = '*';
-    }
-
-    if(!$cacheParams) {
-      $cacheParams = '*';
-    }
+    $filename    = !$filename ? '.+' : $filename;
+    $cacheParams = !$cacheParams ? '.+' : $cacheParams;
 
     if(!$needles) {
-      $file = 'image_manager__'. $cacheParams . '_'. $filename;
-
-      $needles = array();
-      $needles[] = $REX['INCLUDE_PATH'] . '/generated/image_manager/'.$file;
-      $needles[] = $REX['HTDOCS_PATH'] . 'files/'.$file;
-    } else {
-      $needles = (array) $needles;
+      $needles   = array();
+      $pattern   = '@image_manager__'. $cacheParams . '_'. $filename.'@i';
+      $needles[] = array('dir' => $REX['INCLUDE_PATH'] . '/generated/image_manager/', 'pattern' => $pattern);
     }
 
 
@@ -183,23 +174,23 @@ class rex_image_cacher
     $counter = 0;
     foreach($needles as $needle)
     {
-      $glob = glob($needle);
-      if($glob)
+      $dir   = new RecursiveDirectoryIterator($needle['dir']);
+      $ite   = new RecursiveIteratorIterator($dir);
+      $files = new RegexIterator($ite, '@.+\.(jpg|jpeg|gif|png)@i', RegexIterator::GET_MATCH);
+
+      foreach ($files as $file)
       {
-        foreach ($glob as $file)
-        {
-          if(is_dir($file)) {
-            continue;
-          }
-          if(unlink($file)) {
-            $counter++;
-          } else {
-            trigger_error(__CLASS__.'::'.__FUNCTION__.': could not unlink '.$file , E_USER_WARNING);
-          }
+        $file = $file[0];
+        if(is_dir($file)) {
+          continue;
+        }
+        if(unlink($file)) {
+          $counter++;
+        } else {
+          trigger_error(__CLASS__.'::'.__FUNCTION__.': could not unlink '.$file, E_USER_WARNING);
         }
       }
     }
-
     return $counter;
   }
 
